@@ -1,0 +1,1829 @@
+\documentclass[]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+\hypersetup{unicode=true,
+            pdftitle={R-Assignment\_Markdown},
+            pdfauthor={Qi Mu},
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{0}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+%%% Use protect on footnotes to avoid problems with footnotes in titles
+\let\rmarkdownfootnote\footnote%
+\def\footnote{\protect\rmarkdownfootnote}
+
+%%% Change title format to be more compact
+\usepackage{titling}
+
+% Create subtitle command for use in maketitle
+\newcommand{\subtitle}[1]{
+  \posttitle{
+    \begin{center}\large#1\end{center}
+    }
+}
+
+\setlength{\droptitle}{-2em}
+
+  \title{R-Assignment\_Markdown}
+    \pretitle{\vspace{\droptitle}\centering\huge}
+  \posttitle{\par}
+    \author{Qi Mu}
+    \preauthor{\centering\large\emph}
+  \postauthor{\par}
+      \predate{\centering\large\emph}
+  \postdate{\par}
+    \date{October 8, 2018}
+
+
+\begin{document}
+\maketitle
+
+\subsection{Import data}\label{import-data}
+
+The project structure is R-Assignment Code: store the script for this
+project Data: store the orginal (input) files Instruction: store the
+assignment instruction Output: store all the output files First load
+date from local folder. \texttt{../Data/file} was used because that is
+where I stored my input files.\texttt{../} represent going up a level,
+similar to unix system. *The web address based loading data does not
+work here.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(tidyverse)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: package 'tidyverse' was built under R version 3.5.1
+\end{verbatim}
+
+\begin{verbatim}
+## -- Attaching packages ---------------------------------------------------------- tidyverse 1.2.1 --
+\end{verbatim}
+
+\begin{verbatim}
+## v ggplot2 2.2.1     v purrr   0.2.5
+## v tibble  1.4.2     v dplyr   0.7.6
+## v tidyr   0.8.1     v stringr 1.3.0
+## v readr   1.1.1     v forcats 0.3.0
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: package 'dplyr' was built under R version 3.5.1
+\end{verbatim}
+
+\begin{verbatim}
+## -- Conflicts ------------------------------------------------------------- tidyverse_conflicts() --
+## x dplyr::filter() masks stats::filter()
+## x dplyr::lag()    masks stats::lag()
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Geno <-}\StringTok{ }\KeywordTok{read_tsv}\NormalTok{(}\StringTok{"../Data/fang_et_al_genotypes.txt"}\NormalTok{, }\DataTypeTok{col_names =}\NormalTok{ T )}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Parsed with column specification:
+## cols(
+##   .default = col_character()
+## )
+\end{verbatim}
+
+\begin{verbatim}
+## See spec(...) for full column specifications.
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{SNP <-}\StringTok{ }\KeywordTok{read_tsv}\NormalTok{(}\StringTok{"../Data/snp_position.txt"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Parsed with column specification:
+## cols(
+##   SNP_ID = col_character(),
+##   cdv_marker_id = col_integer(),
+##   Chromosome = col_character(),
+##   Position = col_character(),
+##   alt_pos = col_character(),
+##   mult_positions = col_character(),
+##   amplicon = col_character(),
+##   cdv_map_feature.name = col_character(),
+##   gene = col_character(),
+##   `candidate/random` = col_character(),
+##   Genaissance_daa_id = col_integer(),
+##   Sequenom_daa_id = col_integer(),
+##   count_amplicons = col_integer(),
+##   count_cmf = col_integer(),
+##   count_gene = col_integer()
+## )
+\end{verbatim}
+
+\subsubsection{Part I}\label{part-i}
+
+\subsection{Data inspection}\label{data-inspection}
+
+There are many ways to inspect the data. Below is a list of functions we
+can do. However, I masked certain fucntions because they will produce
+too large outputs. These actions can be done for smaller sized
+dateframes. \texttt{head()} is showing the similiar results as by
+looking at the data itself (both are showing the tibble of the first few
+rows), so I masked it as well.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Geno}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 2,782 x 986
+##    Sample_ID JG_OTU  Group abph1.20 abph1.22 ae1.3 ae1.4 ae1.5 an1.4 ba1.6
+##    <chr>     <chr>   <chr> <chr>    <chr>    <chr> <chr> <chr> <chr> <chr>
+##  1 SL-15     T-aust~ TRIPS ?/?      ?/?      T/T   G/G   T/T   C/C   ?/?  
+##  2 SL-16     T-aust~ TRIPS ?/?      ?/?      T/T   ?/?   T/T   C/C   A/G  
+##  3 SL-11     T-brav~ TRIPS ?/?      ?/?      T/T   G/G   T/T   ?/?   G/G  
+##  4 SL-12     T-brav~ TRIPS ?/?      ?/?      T/T   G/G   T/T   C/C   G/G  
+##  5 SL-18     T-cund  TRIPS ?/?      ?/?      T/T   G/G   T/T   C/C   ?/?  
+##  6 SL-2      T-dact~ TRIPS ?/?      ?/?      T/T   G/G   T/T   C/C   A/G  
+##  7 SL-4      T-dact~ TRIPS ?/?      ?/?      T/T   G/G   T/T   C/C   G/G  
+##  8 SL-6      T-dact~ TRIPS ?/?      ?/?      T/T   G/G   T/T   C/C   ?/?  
+##  9 SL-7      T-dact~ TRIPS ?/?      ?/?      T/T   G/G   T/T   C/C   G/G  
+## 10 SL-5      T-dact~ TRIPS ?/?      ?/?      T/T   G/G   T/T   C/C   ?/?  
+## # ... with 2,772 more rows, and 976 more variables: ba1.9 <chr>,
+## #   bt2.5 <chr>, bt2.7 <chr>, bt2.8 <chr>, Fea2.1 <chr>, Fea2.5 <chr>,
+## #   id1.3 <chr>, lg2.11 <chr>, lg2.2 <chr>, pbf1.1 <chr>, pbf1.2 <chr>,
+## #   pbf1.3 <chr>, pbf1.5 <chr>, pbf1.6 <chr>, pbf1.7 <chr>, pbf1.8 <chr>,
+## #   PZA00003.11 <chr>, PZA00004.2 <chr>, PZA00005.8 <chr>,
+## #   PZA00005.9 <chr>, PZA00006.13 <chr>, PZA00006.14 <chr>,
+## #   PZA00008.1 <chr>, PZA00010.5 <chr>, PZA00013.10 <chr>,
+## #   PZA00013.11 <chr>, PZA00013.9 <chr>, PZA00015.4 <chr>,
+## #   PZA00017.1 <chr>, PZA00018.5 <chr>, PZA00029.11 <chr>,
+## #   PZA00029.12 <chr>, PZA00030.11 <chr>, PZA00031.5 <chr>,
+## #   PZA00041.3 <chr>, PZA00042.2 <chr>, PZA00042.5 <chr>,
+## #   PZA00043.7 <chr>, PZA00045.1 <chr>, PZA00047.2 <chr>,
+## #   PZA00049.12 <chr>, PZA00050.9 <chr>, PZA00051.2 <chr>,
+## #   PZA00058.5 <chr>, PZA00058.6 <chr>, PZA00060.2 <chr>,
+## #   PZA00061.1 <chr>, PZA00065.2 <chr>, PZA00069.4 <chr>,
+## #   PZA00070.5 <chr>, PZA00078.2 <chr>, PZA00079.1 <chr>,
+## #   PZA00081.17 <chr>, PZA00084.2 <chr>, PZA00084.3 <chr>,
+## #   PZA00086.8 <chr>, PZA00088.3 <chr>, PZA00090.2 <chr>,
+## #   PZA00092.1 <chr>, PZA00092.5 <chr>, PZA00093.2 <chr>,
+## #   PZA00096.26 <chr>, PZA00097.13 <chr>, PZA00098.14 <chr>,
+## #   PZA00100.10 <chr>, PZA00100.12 <chr>, PZA00100.14 <chr>,
+## #   PZA00100.9 <chr>, PZA00103.20 <chr>, PZA00106.9 <chr>,
+## #   PZA00107.18 <chr>, PZA00108.12 <chr>, PZA00108.14 <chr>,
+## #   PZA00108.15 <chr>, PZA00109.3 <chr>, PZA00109.5 <chr>,
+## #   PZA00111.2 <chr>, PZA00111.4 <chr>, PZA00111.5 <chr>,
+## #   PZA00111.6 <chr>, PZA00111.8 <chr>, PZA00114.3 <chr>,
+## #   PZA00116.2 <chr>, PZA00119.4 <chr>, PZA00120.4 <chr>,
+## #   PZA00123.1 <chr>, PZA00125.2 <chr>, PZA00131.14 <chr>,
+## #   PZA00132.17 <chr>, PZA00132.18 <chr>, PZA00132.3 <chr>,
+## #   PZA00135.6 <chr>, PZA00137.2 <chr>, PZA00139.14 <chr>,
+## #   PZA00140.10 <chr>, PZA00140.6 <chr>, PZA00140.9 <chr>,
+## #   PZA00142.6 <chr>, PZA00148.2 <chr>, PZA00153.3 <chr>, ...
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#head(Geno)}
+\KeywordTok{tail}\NormalTok{(Geno)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 6 x 986
+##   Sample_ID JG_OTU   Group abph1.20 abph1.22 ae1.3 ae1.4 ae1.5 an1.4 ba1.6
+##   <chr>     <chr>    <chr> <chr>    <chr>    <chr> <chr> <chr> <chr> <chr>
+## 1 SYN262    Zmm-IL-~ ZMMIL C/C      A/A      T/T   G/G   C/C   C/C   G/G  
+## 2 S0398     Zmm-IL-~ ZMMIL G/G      A/A      T/T   G/G   C/C   C/C   G/G  
+## 3 S1636     Zmm-IL-~ ZMMIL G/G      A/A      T/T   G/G   C/C   C/C   G/G  
+## 4 CU0201    Zmm-IL-~ ZMMIL C/C      A/A      T/T   G/G   C/C   C/C   G/G  
+## 5 S0215     Zmm-IL-~ ZMMIL G/G      A/A      T/T   ?/?   C/C   C/C   G/G  
+## 6 CU0202    Zmm-IL-~ ZMMIL C/C      A/A      T/T   G/G   C/C   C/C   ?/?  
+## # ... with 976 more variables: ba1.9 <chr>, bt2.5 <chr>, bt2.7 <chr>,
+## #   bt2.8 <chr>, Fea2.1 <chr>, Fea2.5 <chr>, id1.3 <chr>, lg2.11 <chr>,
+## #   lg2.2 <chr>, pbf1.1 <chr>, pbf1.2 <chr>, pbf1.3 <chr>, pbf1.5 <chr>,
+## #   pbf1.6 <chr>, pbf1.7 <chr>, pbf1.8 <chr>, PZA00003.11 <chr>,
+## #   PZA00004.2 <chr>, PZA00005.8 <chr>, PZA00005.9 <chr>,
+## #   PZA00006.13 <chr>, PZA00006.14 <chr>, PZA00008.1 <chr>,
+## #   PZA00010.5 <chr>, PZA00013.10 <chr>, PZA00013.11 <chr>,
+## #   PZA00013.9 <chr>, PZA00015.4 <chr>, PZA00017.1 <chr>,
+## #   PZA00018.5 <chr>, PZA00029.11 <chr>, PZA00029.12 <chr>,
+## #   PZA00030.11 <chr>, PZA00031.5 <chr>, PZA00041.3 <chr>,
+## #   PZA00042.2 <chr>, PZA00042.5 <chr>, PZA00043.7 <chr>,
+## #   PZA00045.1 <chr>, PZA00047.2 <chr>, PZA00049.12 <chr>,
+## #   PZA00050.9 <chr>, PZA00051.2 <chr>, PZA00058.5 <chr>,
+## #   PZA00058.6 <chr>, PZA00060.2 <chr>, PZA00061.1 <chr>,
+## #   PZA00065.2 <chr>, PZA00069.4 <chr>, PZA00070.5 <chr>,
+## #   PZA00078.2 <chr>, PZA00079.1 <chr>, PZA00081.17 <chr>,
+## #   PZA00084.2 <chr>, PZA00084.3 <chr>, PZA00086.8 <chr>,
+## #   PZA00088.3 <chr>, PZA00090.2 <chr>, PZA00092.1 <chr>,
+## #   PZA00092.5 <chr>, PZA00093.2 <chr>, PZA00096.26 <chr>,
+## #   PZA00097.13 <chr>, PZA00098.14 <chr>, PZA00100.10 <chr>,
+## #   PZA00100.12 <chr>, PZA00100.14 <chr>, PZA00100.9 <chr>,
+## #   PZA00103.20 <chr>, PZA00106.9 <chr>, PZA00107.18 <chr>,
+## #   PZA00108.12 <chr>, PZA00108.14 <chr>, PZA00108.15 <chr>,
+## #   PZA00109.3 <chr>, PZA00109.5 <chr>, PZA00111.2 <chr>,
+## #   PZA00111.4 <chr>, PZA00111.5 <chr>, PZA00111.6 <chr>,
+## #   PZA00111.8 <chr>, PZA00114.3 <chr>, PZA00116.2 <chr>,
+## #   PZA00119.4 <chr>, PZA00120.4 <chr>, PZA00123.1 <chr>,
+## #   PZA00125.2 <chr>, PZA00131.14 <chr>, PZA00132.17 <chr>,
+## #   PZA00132.18 <chr>, PZA00132.3 <chr>, PZA00135.6 <chr>,
+## #   PZA00137.2 <chr>, PZA00139.14 <chr>, PZA00140.10 <chr>,
+## #   PZA00140.6 <chr>, PZA00140.9 <chr>, PZA00142.6 <chr>,
+## #   PZA00148.2 <chr>, PZA00153.3 <chr>, ...
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{dim}\NormalTok{(Geno)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 2782  986
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#str(Geno)}
+\KeywordTok{is.list}\NormalTok{(Geno)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] TRUE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{is.matrix}\NormalTok{(Geno)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] FALSE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{is.data.frame}\NormalTok{(Geno)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] TRUE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#colnames(Geno)}
+
+\NormalTok{SNP}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 983 x 15
+##    SNP_ID   cdv_marker_id Chromosome Position  alt_pos mult_positions
+##    <chr>            <int> <chr>      <chr>     <chr>   <chr>         
+##  1 abph1.20          5976 2          27403404  <NA>    <NA>          
+##  2 abph1.22          5978 2          27403892  <NA>    <NA>          
+##  3 ae1.3             6605 5          167889790 <NA>    <NA>          
+##  4 ae1.4             6606 5          167889682 <NA>    <NA>          
+##  5 ae1.5             6607 5          167889821 <NA>    <NA>          
+##  6 an1.4             5982 1          240498509 <NA>    <NA>          
+##  7 ba1.6             3463 3          181362952 <NA>    <NA>          
+##  8 ba1.9             3466 3          181362666 <NA>    <NA>          
+##  9 bt2.5             5983 4          66290049  <NA>    <NA>          
+## 10 bt2.7             5985 4          66290994  <NA>    <NA>          
+## # ... with 973 more rows, and 9 more variables: amplicon <chr>,
+## #   cdv_map_feature.name <chr>, gene <chr>, `candidate/random` <chr>,
+## #   Genaissance_daa_id <int>, Sequenom_daa_id <int>,
+## #   count_amplicons <int>, count_cmf <int>, count_gene <int>
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#view(SNP)}
+\CommentTok{#head(SNP)}
+\KeywordTok{tail}\NormalTok{(SNP)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 6 x 15
+##   SNP_ID cdv_marker_id Chromosome Position alt_pos mult_positions amplicon
+##   <chr>          <int> <chr>      <chr>    <chr>   <chr>          <chr>   
+## 1 zap1.2          3514 2          2331285~ <NA>    <NA>           zap1    
+## 2 zen1.1          3519 unknown    unknown  <NA>    <NA>           zen1    
+## 3 zen1.2          3520 unknown    unknown  <NA>    <NA>           zen1    
+## 4 zen1.4          3521 unknown    unknown  <NA>    <NA>           zen1    
+## 5 zfl2.6          6463 2          12543294 <NA>    <NA>           zfl2    
+## 6 zmm3.4          3527 9          16966348 <NA>    <NA>           zmm3    
+## # ... with 8 more variables: cdv_map_feature.name <chr>, gene <chr>,
+## #   `candidate/random` <chr>, Genaissance_daa_id <int>,
+## #   Sequenom_daa_id <int>, count_amplicons <int>, count_cmf <int>,
+## #   count_gene <int>
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{str}\NormalTok{(SNP)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Classes 'tbl_df', 'tbl' and 'data.frame':    983 obs. of  15 variables:
+##  $ SNP_ID              : chr  "abph1.20" "abph1.22" "ae1.3" "ae1.4" ...
+##  $ cdv_marker_id       : int  5976 5978 6605 6606 6607 5982 3463 3466 5983 5985 ...
+##  $ Chromosome          : chr  "2" "2" "5" "5" ...
+##  $ Position            : chr  "27403404" "27403892" "167889790" "167889682" ...
+##  $ alt_pos             : chr  NA NA NA NA ...
+##  $ mult_positions      : chr  NA NA NA NA ...
+##  $ amplicon            : chr  "abph1" "abph1" "ae1" "ae1" ...
+##  $ cdv_map_feature.name: chr  "AB042260" "AB042260" "ae1" "ae1" ...
+##  $ gene                : chr  "abph1" "abph1" "ae1" "ae1" ...
+##  $ candidate/random    : chr  "candidate" "candidate" "candidate" "candidate" ...
+##  $ Genaissance_daa_id  : int  8393 8394 8395 8396 8397 8398 8399 8400 8401 8402 ...
+##  $ Sequenom_daa_id     : int  10474 10475 10477 10478 10479 10481 10482 10483 10486 10487 ...
+##  $ count_amplicons     : int  1 0 1 0 0 1 1 0 1 0 ...
+##  $ count_cmf           : int  1 0 1 0 0 1 0 0 1 0 ...
+##  $ count_gene          : int  1 0 1 0 0 1 1 0 1 0 ...
+##  - attr(*, "spec")=List of 2
+##   ..$ cols   :List of 15
+##   .. ..$ SNP_ID              : list()
+##   .. .. ..- attr(*, "class")= chr  "collector_character" "collector"
+##   .. ..$ cdv_marker_id       : list()
+##   .. .. ..- attr(*, "class")= chr  "collector_integer" "collector"
+##   .. ..$ Chromosome          : list()
+##   .. .. ..- attr(*, "class")= chr  "collector_character" "collector"
+##   .. ..$ Position            : list()
+##   .. .. ..- attr(*, "class")= chr  "collector_character" "collector"
+##   .. ..$ alt_pos             : list()
+##   .. .. ..- attr(*, "class")= chr  "collector_character" "collector"
+##   .. ..$ mult_positions      : list()
+##   .. .. ..- attr(*, "class")= chr  "collector_character" "collector"
+##   .. ..$ amplicon            : list()
+##   .. .. ..- attr(*, "class")= chr  "collector_character" "collector"
+##   .. ..$ cdv_map_feature.name: list()
+##   .. .. ..- attr(*, "class")= chr  "collector_character" "collector"
+##   .. ..$ gene                : list()
+##   .. .. ..- attr(*, "class")= chr  "collector_character" "collector"
+##   .. ..$ candidate/random    : list()
+##   .. .. ..- attr(*, "class")= chr  "collector_character" "collector"
+##   .. ..$ Genaissance_daa_id  : list()
+##   .. .. ..- attr(*, "class")= chr  "collector_integer" "collector"
+##   .. ..$ Sequenom_daa_id     : list()
+##   .. .. ..- attr(*, "class")= chr  "collector_integer" "collector"
+##   .. ..$ count_amplicons     : list()
+##   .. .. ..- attr(*, "class")= chr  "collector_integer" "collector"
+##   .. ..$ count_cmf           : list()
+##   .. .. ..- attr(*, "class")= chr  "collector_integer" "collector"
+##   .. ..$ count_gene          : list()
+##   .. .. ..- attr(*, "class")= chr  "collector_integer" "collector"
+##   ..$ default: list()
+##   .. ..- attr(*, "class")= chr  "collector_guess" "collector"
+##   ..- attr(*, "class")= chr "col_spec"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{is.list}\NormalTok{(SNP)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] TRUE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{is.matrix}\NormalTok{(SNP)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] FALSE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{is.data.frame}\NormalTok{(SNP)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] TRUE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{dim}\NormalTok{(SNP)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 983  15
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#attributes(SNP)}
+\KeywordTok{summary}\NormalTok{(SNP)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##     SNP_ID          cdv_marker_id    Chromosome          Position        
+##  Length:983         Min.   : 3463   Length:983         Length:983        
+##  Class :character   1st Qu.: 3978   Class :character   Class :character  
+##  Mode  :character   Median : 5723   Mode  :character   Mode  :character  
+##                     Mean   : 5925                                        
+##                     3rd Qu.: 6629                                        
+##                     Max.   :12480                                        
+##    alt_pos          mult_positions       amplicon        
+##  Length:983         Length:983         Length:983        
+##  Class :character   Class :character   Class :character  
+##  Mode  :character   Mode  :character   Mode  :character  
+##                                                          
+##                                                          
+##                                                          
+##  cdv_map_feature.name     gene           candidate/random  
+##  Length:983           Length:983         Length:983        
+##  Class :character     Class :character   Class :character  
+##  Mode  :character     Mode  :character   Mode  :character  
+##                                                            
+##                                                            
+##                                                            
+##  Genaissance_daa_id Sequenom_daa_id count_amplicons    count_cmf     
+##  Min.   : 7649      Min.   :10474   Min.   :0.0000   Min.   :0.0000  
+##  1st Qu.: 7906      1st Qu.:10784   1st Qu.:0.0000   1st Qu.:0.0000  
+##  Median : 8173      Median :11110   Median :1.0000   Median :1.0000  
+##  Mean   : 8524      Mean   :11122   Mean   :0.5768   Mean   :0.5483  
+##  3rd Qu.: 9834      3rd Qu.:11420   3rd Qu.:1.0000   3rd Qu.:1.0000  
+##  Max.   :10104      Max.   :11829   Max.   :1.0000   Max.   :1.0000  
+##    count_gene    
+##  Min.   :0.0000  
+##  1st Qu.:0.0000  
+##  Median :1.0000  
+##  Mean   :0.5565  
+##  3rd Qu.:1.0000  
+##  Max.   :1.0000
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{colnames}\NormalTok{(SNP)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1] "SNP_ID"               "cdv_marker_id"        "Chromosome"          
+##  [4] "Position"             "alt_pos"              "mult_positions"      
+##  [7] "amplicon"             "cdv_map_feature.name" "gene"                
+## [10] "candidate/random"     "Genaissance_daa_id"   "Sequenom_daa_id"     
+## [13] "count_amplicons"      "count_cmf"            "count_gene"
+\end{verbatim}
+
+\subsection{SNP Data trimming and subset Geno file for Maize and
+Teosinte
+files}\label{snp-data-trimming-and-subset-geno-file-for-maize-and-teosinte-files}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#Creat reduced SNP file with only SNP_ID [1], Chromosome [3], and Position [4]}
+\NormalTok{RedSNP <-}\StringTok{ }\NormalTok{SNP[}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{4}\NormalTok{)] }\CommentTok{# or use select(SNP, SNP_ID, Chromosome, Position)}
+
+\CommentTok{#subset the Geno file into Maize and Teosinte}
+\NormalTok{Maize <-}\StringTok{ }\KeywordTok{filter}\NormalTok{(Geno, Group }\OperatorTok{==}\StringTok{'ZMMIL'}\OperatorTok{|}\NormalTok{Group}\OperatorTok{==}\StringTok{'ZMMLR'}\OperatorTok{|}\NormalTok{Group}\OperatorTok{==}\StringTok{'ZMMMR'}\NormalTok{)}
+\NormalTok{Maize <-}\StringTok{ }\NormalTok{Maize[,}\KeywordTok{c}\NormalTok{(}\OperatorTok{-}\DecValTok{2}\NormalTok{,}\OperatorTok{-}\DecValTok{3}\NormalTok{)] }\CommentTok{# To remove unused cols. Or use select(Maize,-(JG_OTU, Group))}
+\NormalTok{Maize}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 1,573 x 984
+##    Sample_ID abph1.20 abph1.22 ae1.3 ae1.4 ae1.5 an1.4 ba1.6 ba1.9 bt2.5
+##    <chr>     <chr>    <chr>    <chr> <chr> <chr> <chr> <chr> <chr> <chr>
+##  1 ZDP_0752a C/G      A/A      T/T   G/G   C/C   C/G   G/G   G/G   C/C  
+##  2 ZDP_0793a C/G      A/A      T/T   G/G   C/T   C/G   A/G   G/T   C/C  
+##  3 ZDP_0612a C/C      A/A      T/T   G/G   C/C   C/C   G/G   ?/?   C/C  
+##  4 ZDP_0602a C/G      A/A      G/T   A/G   C/T   C/C   G/G   G/G   C/C  
+##  5 ZDP_0581a C/C      A/A      T/T   G/G   C/T   C/C   G/G   G/G   C/C  
+##  6 ZDP_0552a C/G      A/A      T/T   G/G   C/T   C/C   G/G   G/G   C/C  
+##  7 ZDP_0543a C/C      A/A      T/T   G/G   C/C   C/C   G/G   G/G   C/C  
+##  8 ZDP_0042a C/C      A/A      T/T   G/G   C/T   C/C   G/G   G/G   C/C  
+##  9 ZDP_0121a C/C      A/A      T/T   ?/?   C/T   C/C   G/G   G/G   C/C  
+## 10 ZDP_0101b C/C      A/A      G/T   A/G   T/T   C/C   G/G   G/G   C/C  
+## # ... with 1,563 more rows, and 974 more variables: bt2.7 <chr>,
+## #   bt2.8 <chr>, Fea2.1 <chr>, Fea2.5 <chr>, id1.3 <chr>, lg2.11 <chr>,
+## #   lg2.2 <chr>, pbf1.1 <chr>, pbf1.2 <chr>, pbf1.3 <chr>, pbf1.5 <chr>,
+## #   pbf1.6 <chr>, pbf1.7 <chr>, pbf1.8 <chr>, PZA00003.11 <chr>,
+## #   PZA00004.2 <chr>, PZA00005.8 <chr>, PZA00005.9 <chr>,
+## #   PZA00006.13 <chr>, PZA00006.14 <chr>, PZA00008.1 <chr>,
+## #   PZA00010.5 <chr>, PZA00013.10 <chr>, PZA00013.11 <chr>,
+## #   PZA00013.9 <chr>, PZA00015.4 <chr>, PZA00017.1 <chr>,
+## #   PZA00018.5 <chr>, PZA00029.11 <chr>, PZA00029.12 <chr>,
+## #   PZA00030.11 <chr>, PZA00031.5 <chr>, PZA00041.3 <chr>,
+## #   PZA00042.2 <chr>, PZA00042.5 <chr>, PZA00043.7 <chr>,
+## #   PZA00045.1 <chr>, PZA00047.2 <chr>, PZA00049.12 <chr>,
+## #   PZA00050.9 <chr>, PZA00051.2 <chr>, PZA00058.5 <chr>,
+## #   PZA00058.6 <chr>, PZA00060.2 <chr>, PZA00061.1 <chr>,
+## #   PZA00065.2 <chr>, PZA00069.4 <chr>, PZA00070.5 <chr>,
+## #   PZA00078.2 <chr>, PZA00079.1 <chr>, PZA00081.17 <chr>,
+## #   PZA00084.2 <chr>, PZA00084.3 <chr>, PZA00086.8 <chr>,
+## #   PZA00088.3 <chr>, PZA00090.2 <chr>, PZA00092.1 <chr>,
+## #   PZA00092.5 <chr>, PZA00093.2 <chr>, PZA00096.26 <chr>,
+## #   PZA00097.13 <chr>, PZA00098.14 <chr>, PZA00100.10 <chr>,
+## #   PZA00100.12 <chr>, PZA00100.14 <chr>, PZA00100.9 <chr>,
+## #   PZA00103.20 <chr>, PZA00106.9 <chr>, PZA00107.18 <chr>,
+## #   PZA00108.12 <chr>, PZA00108.14 <chr>, PZA00108.15 <chr>,
+## #   PZA00109.3 <chr>, PZA00109.5 <chr>, PZA00111.2 <chr>,
+## #   PZA00111.4 <chr>, PZA00111.5 <chr>, PZA00111.6 <chr>,
+## #   PZA00111.8 <chr>, PZA00114.3 <chr>, PZA00116.2 <chr>,
+## #   PZA00119.4 <chr>, PZA00120.4 <chr>, PZA00123.1 <chr>,
+## #   PZA00125.2 <chr>, PZA00131.14 <chr>, PZA00132.17 <chr>,
+## #   PZA00132.18 <chr>, PZA00132.3 <chr>, PZA00135.6 <chr>,
+## #   PZA00137.2 <chr>, PZA00139.14 <chr>, PZA00140.10 <chr>,
+## #   PZA00140.6 <chr>, PZA00140.9 <chr>, PZA00142.6 <chr>,
+## #   PZA00148.2 <chr>, PZA00153.3 <chr>, PZA00153.6 <chr>,
+## #   PZA00163.4 <chr>, ...
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Teosinte <-}\StringTok{ }\KeywordTok{filter}\NormalTok{(Geno, Group }\OperatorTok{==}\StringTok{ 'ZMPBA'}\OperatorTok{|}\StringTok{ }\NormalTok{Group}\OperatorTok{==}\StringTok{'ZMPIL'}\OperatorTok{|}\StringTok{ }\NormalTok{Group}\OperatorTok{==}\StringTok{'ZMPJA'}\NormalTok{)}
+\NormalTok{Teosinte <-}\StringTok{ }\NormalTok{Teosinte[,}\KeywordTok{c}\NormalTok{(}\OperatorTok{-}\DecValTok{2}\NormalTok{,}\OperatorTok{-}\DecValTok{3}\NormalTok{)] }\CommentTok{# To remove unused cols}
+\NormalTok{Teosinte}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 975 x 984
+##    Sample_ID abph1.20 abph1.22 ae1.3 ae1.4 ae1.5 an1.4 ba1.6 ba1.9 bt2.5
+##    <chr>     <chr>    <chr>    <chr> <chr> <chr> <chr> <chr> <chr> <chr>
+##  1 S0881     C/G      A/A      T/T   G/G   T/T   C/C   A/G   G/G   T/T  
+##  2 S1057     C/G      A/A      G/T   A/G   T/T   C/C   A/A   G/G   C/T  
+##  3 S1087     G/G      A/A      T/T   G/G   T/T   C/C   A/A   G/G   C/T  
+##  4 S1689     G/G      A/A      T/T   G/G   T/T   C/C   A/A   G/G   C/C  
+##  5 S1697     C/G      A/A      T/T   G/G   T/T   C/C   A/A   G/G   C/C  
+##  6 S1698     C/G      A/A      T/T   A/G   T/T   C/C   A/A   G/G   C/T  
+##  7 S1703     G/G      A/A      T/T   G/G   T/T   C/C   A/A   G/G   C/C  
+##  8 S1704     G/G      A/A      T/T   G/G   C/T   C/C   A/A   T/T   C/T  
+##  9 TA057     G/G      A/A      T/T   G/G   C/T   C/C   A/A   G/T   C/C  
+## 10 TA137     G/G      A/A      T/T   G/G   T/T   C/C   A/A   G/T   C/T  
+## # ... with 965 more rows, and 974 more variables: bt2.7 <chr>,
+## #   bt2.8 <chr>, Fea2.1 <chr>, Fea2.5 <chr>, id1.3 <chr>, lg2.11 <chr>,
+## #   lg2.2 <chr>, pbf1.1 <chr>, pbf1.2 <chr>, pbf1.3 <chr>, pbf1.5 <chr>,
+## #   pbf1.6 <chr>, pbf1.7 <chr>, pbf1.8 <chr>, PZA00003.11 <chr>,
+## #   PZA00004.2 <chr>, PZA00005.8 <chr>, PZA00005.9 <chr>,
+## #   PZA00006.13 <chr>, PZA00006.14 <chr>, PZA00008.1 <chr>,
+## #   PZA00010.5 <chr>, PZA00013.10 <chr>, PZA00013.11 <chr>,
+## #   PZA00013.9 <chr>, PZA00015.4 <chr>, PZA00017.1 <chr>,
+## #   PZA00018.5 <chr>, PZA00029.11 <chr>, PZA00029.12 <chr>,
+## #   PZA00030.11 <chr>, PZA00031.5 <chr>, PZA00041.3 <chr>,
+## #   PZA00042.2 <chr>, PZA00042.5 <chr>, PZA00043.7 <chr>,
+## #   PZA00045.1 <chr>, PZA00047.2 <chr>, PZA00049.12 <chr>,
+## #   PZA00050.9 <chr>, PZA00051.2 <chr>, PZA00058.5 <chr>,
+## #   PZA00058.6 <chr>, PZA00060.2 <chr>, PZA00061.1 <chr>,
+## #   PZA00065.2 <chr>, PZA00069.4 <chr>, PZA00070.5 <chr>,
+## #   PZA00078.2 <chr>, PZA00079.1 <chr>, PZA00081.17 <chr>,
+## #   PZA00084.2 <chr>, PZA00084.3 <chr>, PZA00086.8 <chr>,
+## #   PZA00088.3 <chr>, PZA00090.2 <chr>, PZA00092.1 <chr>,
+## #   PZA00092.5 <chr>, PZA00093.2 <chr>, PZA00096.26 <chr>,
+## #   PZA00097.13 <chr>, PZA00098.14 <chr>, PZA00100.10 <chr>,
+## #   PZA00100.12 <chr>, PZA00100.14 <chr>, PZA00100.9 <chr>,
+## #   PZA00103.20 <chr>, PZA00106.9 <chr>, PZA00107.18 <chr>,
+## #   PZA00108.12 <chr>, PZA00108.14 <chr>, PZA00108.15 <chr>,
+## #   PZA00109.3 <chr>, PZA00109.5 <chr>, PZA00111.2 <chr>,
+## #   PZA00111.4 <chr>, PZA00111.5 <chr>, PZA00111.6 <chr>,
+## #   PZA00111.8 <chr>, PZA00114.3 <chr>, PZA00116.2 <chr>,
+## #   PZA00119.4 <chr>, PZA00120.4 <chr>, PZA00123.1 <chr>,
+## #   PZA00125.2 <chr>, PZA00131.14 <chr>, PZA00132.17 <chr>,
+## #   PZA00132.18 <chr>, PZA00132.3 <chr>, PZA00135.6 <chr>,
+## #   PZA00137.2 <chr>, PZA00139.14 <chr>, PZA00140.10 <chr>,
+## #   PZA00140.6 <chr>, PZA00140.9 <chr>, PZA00142.6 <chr>,
+## #   PZA00148.2 <chr>, PZA00153.3 <chr>, PZA00153.6 <chr>,
+## #   PZA00163.4 <chr>, ...
+\end{verbatim}
+
+\subsection{Transpose}\label{transpose}
+
+Transposed files will lose the header, so I took the colnames from the
+orginal Maize file (vector) and combine with the transposed file using
+cbind (column bind), to add in the first column. cbind tends to convert
+character columns to fators unleass \texttt{stringAsFactors\ =\ F} is
+applied. as.tibble was used to easlily view the dataframe that has been
+transposed and cbinded. After transposition, there is neither the row
+names, nor the column names specified. So the first row was used to set
+as the colnames for tMaize. A duplicate row was removed with
+\texttt{tMaize\ =\ tMaize{[}-1,\ {]}}. In order to joining files later,
+the first cell was replaced from ``Sample\_ID'' to ``SNP\_ID''.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{tMaize<-}\StringTok{ }\KeywordTok{t}\NormalTok{(Maize)}
+\NormalTok{tMaize<-}\KeywordTok{cbind}\NormalTok{(}\KeywordTok{colnames}\NormalTok{(Maize),tMaize,}\DataTypeTok{stringsAsFactors =}\NormalTok{ F)}
+\NormalTok{tMaize<-}\KeywordTok{as.tibble}\NormalTok{(tMaize)}
+\KeywordTok{colnames}\NormalTok{(tMaize)<-}\StringTok{ }\NormalTok{tMaize[}\DecValTok{1}\NormalTok{,]}
+\NormalTok{tMaizee =}\StringTok{ }\NormalTok{tMaize[}\OperatorTok{-}\DecValTok{1}\NormalTok{, ]}
+\KeywordTok{colnames}\NormalTok{(tMaize)[}\DecValTok{1}\NormalTok{] <-}\StringTok{ "SNP_ID"}
+\NormalTok{tMaize}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 984 x 1,575
+##    SNP_ID    ZDP_0752a ZDP_0793a ZDP_0612a ZDP_0602a ZDP_0581a ZDP_0552a
+##    <chr>     <chr>     <chr>     <chr>     <chr>     <chr>     <chr>    
+##  1 Sample_ID ZDP_0752a ZDP_0793a ZDP_0612a ZDP_0602a ZDP_0581a ZDP_0552a
+##  2 abph1.20  C/G       C/G       C/C       C/G       C/C       C/G      
+##  3 abph1.22  A/A       A/A       A/A       A/A       A/A       A/A      
+##  4 ae1.3     T/T       T/T       T/T       G/T       T/T       T/T      
+##  5 ae1.4     G/G       G/G       G/G       A/G       G/G       G/G      
+##  6 ae1.5     C/C       C/T       C/C       C/T       C/T       C/T      
+##  7 an1.4     C/G       C/G       C/C       C/C       C/C       C/C      
+##  8 ba1.6     G/G       A/G       G/G       G/G       G/G       G/G      
+##  9 ba1.9     G/G       G/T       ?/?       G/G       G/G       G/G      
+## 10 bt2.5     C/C       C/C       C/C       C/C       C/C       C/C      
+## # ... with 974 more rows, and 1,568 more variables: ZDP_0543a <chr>,
+## #   ZDP_0042a <chr>, ZDP_0121a <chr>, ZDP_0101b <chr>, ZDP_0087a <chr>,
+## #   ZDP_0033a <chr>, ZDP_0373b <chr>, ZDP_0168a <chr>, ZDP_0169a <chr>,
+## #   ZDP_0517b <chr>, ZDP_1098a <chr>, ZDP_0591a <chr>, ZDP_0258a <chr>,
+## #   ZDP_0009a <chr>, ZDP_0016a <chr>, ZDP_0010a <chr>, ZDP_0018a <chr>,
+## #   ZDP_0647b <chr>, ZDP_1064b <chr>, ZDP_1053a <chr>, ZDP_1445b <chr>,
+## #   ZDP_0163a <chr>, ZDP_0164a <chr>, ZDP_0166a <chr>, ZDP_0839a <chr>,
+## #   ZDP_0849a <chr>, ZDP_0858b <chr>, ZDP_0184b <chr>, ZDP_0179a <chr>,
+## #   ZDP_0180a <chr>, ZDP_1021a <chr>, ZDP_0181a <chr>, ZDP_1004a <chr>,
+## #   S1799 <chr>, ZDP_0856a <chr>, ZDP_0915b <chr>, ZDP_1194b <chr>,
+## #   ZDP_1476a <chr>, ZDP_0935a <chr>, ZDP_0197a <chr>, ZDP_0206a <chr>,
+## #   ZDP_0195a <chr>, ZDP_0051a <chr>, ZDP_0054a <chr>, ZDP_0052a <chr>,
+## #   ZDP_0675b <chr>, ZDP_0791a <chr>, ZDP_0814a <chr>, ZDP_0122a <chr>,
+## #   ZDP_0090a <chr>, ZDP_0083a <chr>, ZDP_0084a <chr>, ZDP_0061a <chr>,
+## #   ZDP_0561a <chr>, ZDP_0057a <chr>, ZDP_0570a <chr>, ZDP_0899b <chr>,
+## #   ZDP_0888b <chr>, ZDP_1104a <chr>, ZDP_1162a <chr>, S1579 <chr>,
+## #   ZDP_0634a <chr>, S1843 <chr>, ZDP_0689b <chr>, ZDP_0733b <chr>,
+## #   ZDP_0758b <chr>, ZDP_1003b <chr>, ZDP_1012a <chr>, ZDP_0640b <chr>,
+## #   ZDP_0153a <chr>, ZDP_0154a <chr>, ZDP_1020a <chr>, S1822 <chr>,
+## #   ZDP_0994a <chr>, ZDP_1208a <chr>, ZDP_1489a <chr>, ZDP_0123b <chr>,
+## #   ZDP_1010a <chr>, ZDP_0001a <chr>, ZDP_0174a <chr>, ZDP_0178a <chr>,
+## #   ZDP_1221b <chr>, ZDP_1481a <chr>, ZDP_0988a <chr>, ZDP_0456a <chr>,
+## #   ZDP_0368b <chr>, ZDP_0376a <chr>, BKN_003 <chr>, BKN_004 <chr>,
+## #   ZDP_0396a <chr>, ZDP_0417a <chr>, ZDP_0563a <chr>, ZDP_0727a <chr>,
+## #   ZDP_0746b <chr>, ZDP_0756b <chr>, ZDP_1126a <chr>, ZDP_1186a <chr>,
+## #   ZDP_1100a <chr>, ZDP_0496a <chr>, ZDP_0280a <chr>, ...
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{tTeosinte<-}\StringTok{ }\KeywordTok{t}\NormalTok{(Teosinte)}
+\NormalTok{tTeosinte<-}\KeywordTok{cbind}\NormalTok{(}\KeywordTok{colnames}\NormalTok{(Teosinte),tTeosinte,}\DataTypeTok{stringsAsFactors =}\NormalTok{ F)}
+\NormalTok{tTeosinte<-}\KeywordTok{as.tibble}\NormalTok{(tTeosinte)}
+\KeywordTok{colnames}\NormalTok{(tTeosinte)<-}\StringTok{ }\NormalTok{tTeosinte[}\DecValTok{1}\NormalTok{,]}
+\NormalTok{tTeosinte =}\StringTok{ }\NormalTok{tTeosinte[}\OperatorTok{-}\DecValTok{1}\NormalTok{, ]}
+\KeywordTok{colnames}\NormalTok{(tTeosinte)[}\DecValTok{1}\NormalTok{] <-}\StringTok{ "SNP_ID"}
+\NormalTok{tTeosinte}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 983 x 977
+##    SNP_ID   S0881 S1057 S1087 S1689 S1697 S1698 S1703 S1704 TA057 TA137
+##    <chr>    <chr> <chr> <chr> <chr> <chr> <chr> <chr> <chr> <chr> <chr>
+##  1 abph1.20 C/G   C/G   G/G   G/G   C/G   C/G   G/G   G/G   G/G   G/G  
+##  2 abph1.22 A/A   A/A   A/A   A/A   A/A   A/A   A/A   A/A   A/A   A/A  
+##  3 ae1.3    T/T   G/T   T/T   T/T   T/T   T/T   T/T   T/T   T/T   T/T  
+##  4 ae1.4    G/G   A/G   G/G   G/G   G/G   A/G   G/G   G/G   G/G   G/G  
+##  5 ae1.5    T/T   T/T   T/T   T/T   T/T   T/T   T/T   C/T   C/T   T/T  
+##  6 an1.4    C/C   C/C   C/C   C/C   C/C   C/C   C/C   C/C   C/C   C/C  
+##  7 ba1.6    A/G   A/A   A/A   A/A   A/A   A/A   A/A   A/A   A/A   A/A  
+##  8 ba1.9    G/G   G/G   G/G   G/G   G/G   G/G   G/G   T/T   G/T   G/T  
+##  9 bt2.5    T/T   C/T   C/T   C/C   C/C   C/T   C/C   C/T   C/C   C/T  
+## 10 bt2.7    A/A   A/A   A/A   A/A   A/A   A/A   A/A   A/A   A/A   A/A  
+## # ... with 973 more rows, and 966 more variables: TA153 <chr>,
+## #   TA205 <chr>, TA217 <chr>, TA242 <chr>, TA285 <chr>, TA293 <chr>,
+## #   TAMex0091.1 <chr>, TAMex0153.1 <chr>, TAMex0238.1 <chr>,
+## #   TAMex0396.1 <chr>, TAMex0446.1 <chr>, TAMex0455.2 <chr>,
+## #   TAMex0520.1 <chr>, TAMex0608.5 <chr>, TAMex0624.1 <chr>,
+## #   TAMex0643.1 <chr>, TAMex0775.2 <chr>, TAMex0930.1 <chr>,
+## #   TAMex1083.1 <chr>, TAMex1111.1 <chr>, TAMex1195.2 <chr>,
+## #   TAMex1222.2 <chr>, TAMex1308.1 <chr>, TAMex1321.1 <chr>,
+## #   TAMex1344.2 <chr>, TAMex1422.2 <chr>, TAMex1488.1 <chr>,
+## #   TAMex1561.2 <chr>, TAMex0005.1 <chr>, TAMex0077.1 <chr>,
+## #   TAMex0240.2 <chr>, TAMex0299.1 <chr>, TAMex0382.2 <chr>,
+## #   TAMex0482.2 <chr>, TAMex0483.1 <chr>, TAMex0488.1 <chr>,
+## #   TAMex0509.1 <chr>, TAMex0621.2 <chr>, TAMex0819.1 <chr>,
+## #   TAMex0840.1 <chr>, TAMex0855.2 <chr>, TAMex0901.2 <chr>,
+## #   TAMex0925.1 <chr>, TAMex0942.1 <chr>, TAMex0966.1 <chr>,
+## #   TAMex1005.1 <chr>, TAMex1136.1 <chr>, TAMex1165.1 <chr>,
+## #   TAMex1340.1 <chr>, TAMex1349.2 <chr>, TAMex1391.2 <chr>,
+## #   TAMex1437.1 <chr>, TAMex1508.4 <chr>, TAMex0050.1 <chr>,
+## #   TAMex0106.1 <chr>, TAMex0167.1 <chr>, TAMex0181.2 <chr>,
+## #   TAMex0207.2 <chr>, TAMex0438.1 <chr>, TAMex0515.1 <chr>,
+## #   TAMex0517.1 <chr>, TAMex0568.1 <chr>, TAMex0645.1 <chr>,
+## #   TAMex0667.1 <chr>, TAMex0757.1 <chr>, TAMex0845.2 <chr>,
+## #   TAMex0849.3 <chr>, TAMex0918.2 <chr>, TAMex0947.1 <chr>,
+## #   TAMex0982.1 <chr>, TAMex1139.2 <chr>, TAMex1298.4 <chr>,
+## #   TAMex1348.3 <chr>, TAMex1358.1 <chr>, TAMex1439.2 <chr>,
+## #   TAMex1443.1 <chr>, TAMex1467.1 <chr>, TAMex0267.2 <chr>,
+## #   TAMex0280.3 <chr>, TAMex0400.1 <chr>, TAMex0403.1 <chr>,
+## #   TAMex0412.1 <chr>, TAMex0495.1 <chr>, TAMex0514.1 <chr>,
+## #   TAMex0544.1 <chr>, TAMex0587.1 <chr>, TAMex0613.2 <chr>,
+## #   TAMex0766.2 <chr>, TAMex0785.1 <chr>, TAMex0874.1 <chr>,
+## #   TAMex0897.2 <chr>, TAMex1069.2 <chr>, TAMex1087.1 <chr>,
+## #   TAMex1107.1 <chr>, TAMex1160.1 <chr>, TAMex1178.1 <chr>,
+## #   TAMex1246.3 <chr>, TAMex1271.2 <chr>, TAMex1283.1 <chr>,
+## #   TAMex1429.2 <chr>, ...
+\end{verbatim}
+
+\subsection{Merge SNP file with Maize and Teosinte
+files}\label{merge-snp-file-with-maize-and-teosinte-files}
+
+I used \texttt{merge} function here, which is base R function. However,
+\texttt{inner\_join} function from dplyr can be applied, so that
+\texttt{as.tibble} can be dismissed.
+\texttt{SNP\_tMaize1\textless{}-\ inner\_join(RedSNP,tMaize,\ by=\ "SNP\_ID")}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{SNP_tMaize<-}\StringTok{ }\KeywordTok{merge}\NormalTok{ (RedSNP,tMaize, }\DataTypeTok{by=} \StringTok{"SNP_ID"}\NormalTok{) }\CommentTok{#method #1}
+\NormalTok{SNP_tMaize<-}\KeywordTok{as.tibble}\NormalTok{(SNP_tMaize)}
+\NormalTok{SNP_tMaize}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 983 x 1,577
+##    SNP_ID   Chromosome Position  ZDP_0752a ZDP_0793a ZDP_0612a ZDP_0602a
+##    <chr>    <chr>      <chr>     <chr>     <chr>     <chr>     <chr>    
+##  1 abph1.20 2          27403404  C/G       C/G       C/C       C/G      
+##  2 abph1.22 2          27403892  A/A       A/A       A/A       A/A      
+##  3 ae1.3    5          167889790 T/T       T/T       T/T       G/T      
+##  4 ae1.4    5          167889682 G/G       G/G       G/G       A/G      
+##  5 ae1.5    5          167889821 C/C       C/T       C/C       C/T      
+##  6 an1.4    1          240498509 C/G       C/G       C/C       C/C      
+##  7 ba1.6    3          181362952 G/G       A/G       G/G       G/G      
+##  8 ba1.9    3          181362666 G/G       G/T       ?/?       G/G      
+##  9 bt2.5    4          66290049  C/C       C/C       C/C       C/C      
+## 10 bt2.7    4          66290994  ?/?       ?/?       G/G       G/G      
+## # ... with 973 more rows, and 1,570 more variables: ZDP_0581a <chr>,
+## #   ZDP_0552a <chr>, ZDP_0543a <chr>, ZDP_0042a <chr>, ZDP_0121a <chr>,
+## #   ZDP_0101b <chr>, ZDP_0087a <chr>, ZDP_0033a <chr>, ZDP_0373b <chr>,
+## #   ZDP_0168a <chr>, ZDP_0169a <chr>, ZDP_0517b <chr>, ZDP_1098a <chr>,
+## #   ZDP_0591a <chr>, ZDP_0258a <chr>, ZDP_0009a <chr>, ZDP_0016a <chr>,
+## #   ZDP_0010a <chr>, ZDP_0018a <chr>, ZDP_0647b <chr>, ZDP_1064b <chr>,
+## #   ZDP_1053a <chr>, ZDP_1445b <chr>, ZDP_0163a <chr>, ZDP_0164a <chr>,
+## #   ZDP_0166a <chr>, ZDP_0839a <chr>, ZDP_0849a <chr>, ZDP_0858b <chr>,
+## #   ZDP_0184b <chr>, ZDP_0179a <chr>, ZDP_0180a <chr>, ZDP_1021a <chr>,
+## #   ZDP_0181a <chr>, ZDP_1004a <chr>, S1799 <chr>, ZDP_0856a <chr>,
+## #   ZDP_0915b <chr>, ZDP_1194b <chr>, ZDP_1476a <chr>, ZDP_0935a <chr>,
+## #   ZDP_0197a <chr>, ZDP_0206a <chr>, ZDP_0195a <chr>, ZDP_0051a <chr>,
+## #   ZDP_0054a <chr>, ZDP_0052a <chr>, ZDP_0675b <chr>, ZDP_0791a <chr>,
+## #   ZDP_0814a <chr>, ZDP_0122a <chr>, ZDP_0090a <chr>, ZDP_0083a <chr>,
+## #   ZDP_0084a <chr>, ZDP_0061a <chr>, ZDP_0561a <chr>, ZDP_0057a <chr>,
+## #   ZDP_0570a <chr>, ZDP_0899b <chr>, ZDP_0888b <chr>, ZDP_1104a <chr>,
+## #   ZDP_1162a <chr>, S1579 <chr>, ZDP_0634a <chr>, S1843 <chr>,
+## #   ZDP_0689b <chr>, ZDP_0733b <chr>, ZDP_0758b <chr>, ZDP_1003b <chr>,
+## #   ZDP_1012a <chr>, ZDP_0640b <chr>, ZDP_0153a <chr>, ZDP_0154a <chr>,
+## #   ZDP_1020a <chr>, S1822 <chr>, ZDP_0994a <chr>, ZDP_1208a <chr>,
+## #   ZDP_1489a <chr>, ZDP_0123b <chr>, ZDP_1010a <chr>, ZDP_0001a <chr>,
+## #   ZDP_0174a <chr>, ZDP_0178a <chr>, ZDP_1221b <chr>, ZDP_1481a <chr>,
+## #   ZDP_0988a <chr>, ZDP_0456a <chr>, ZDP_0368b <chr>, ZDP_0376a <chr>,
+## #   BKN_003 <chr>, BKN_004 <chr>, ZDP_0396a <chr>, ZDP_0417a <chr>,
+## #   ZDP_0563a <chr>, ZDP_0727a <chr>, ZDP_0746b <chr>, ZDP_0756b <chr>,
+## #   ZDP_1126a <chr>, ZDP_1186a <chr>, ZDP_1100a <chr>, ...
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{SNP_tTeosinte<-}\StringTok{ }\KeywordTok{inner_join}\NormalTok{(RedSNP,tTeosinte, }\DataTypeTok{by=} \StringTok{"SNP_ID"}\NormalTok{) }\CommentTok{#method #2}
+\NormalTok{SNP_tTeosinte}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 983 x 979
+##    SNP_ID   Chromosome Position  S0881 S1057 S1087 S1689 S1697 S1698 S1703
+##    <chr>    <chr>      <chr>     <chr> <chr> <chr> <chr> <chr> <chr> <chr>
+##  1 abph1.20 2          27403404  C/G   C/G   G/G   G/G   C/G   C/G   G/G  
+##  2 abph1.22 2          27403892  A/A   A/A   A/A   A/A   A/A   A/A   A/A  
+##  3 ae1.3    5          167889790 T/T   G/T   T/T   T/T   T/T   T/T   T/T  
+##  4 ae1.4    5          167889682 G/G   A/G   G/G   G/G   G/G   A/G   G/G  
+##  5 ae1.5    5          167889821 T/T   T/T   T/T   T/T   T/T   T/T   T/T  
+##  6 an1.4    1          240498509 C/C   C/C   C/C   C/C   C/C   C/C   C/C  
+##  7 ba1.6    3          181362952 A/G   A/A   A/A   A/A   A/A   A/A   A/A  
+##  8 ba1.9    3          181362666 G/G   G/G   G/G   G/G   G/G   G/G   G/G  
+##  9 bt2.5    4          66290049  T/T   C/T   C/T   C/C   C/C   C/T   C/C  
+## 10 bt2.7    4          66290994  A/A   A/A   A/A   A/A   A/A   A/A   A/A  
+## # ... with 973 more rows, and 969 more variables: S1704 <chr>,
+## #   TA057 <chr>, TA137 <chr>, TA153 <chr>, TA205 <chr>, TA217 <chr>,
+## #   TA242 <chr>, TA285 <chr>, TA293 <chr>, TAMex0091.1 <chr>,
+## #   TAMex0153.1 <chr>, TAMex0238.1 <chr>, TAMex0396.1 <chr>,
+## #   TAMex0446.1 <chr>, TAMex0455.2 <chr>, TAMex0520.1 <chr>,
+## #   TAMex0608.5 <chr>, TAMex0624.1 <chr>, TAMex0643.1 <chr>,
+## #   TAMex0775.2 <chr>, TAMex0930.1 <chr>, TAMex1083.1 <chr>,
+## #   TAMex1111.1 <chr>, TAMex1195.2 <chr>, TAMex1222.2 <chr>,
+## #   TAMex1308.1 <chr>, TAMex1321.1 <chr>, TAMex1344.2 <chr>,
+## #   TAMex1422.2 <chr>, TAMex1488.1 <chr>, TAMex1561.2 <chr>,
+## #   TAMex0005.1 <chr>, TAMex0077.1 <chr>, TAMex0240.2 <chr>,
+## #   TAMex0299.1 <chr>, TAMex0382.2 <chr>, TAMex0482.2 <chr>,
+## #   TAMex0483.1 <chr>, TAMex0488.1 <chr>, TAMex0509.1 <chr>,
+## #   TAMex0621.2 <chr>, TAMex0819.1 <chr>, TAMex0840.1 <chr>,
+## #   TAMex0855.2 <chr>, TAMex0901.2 <chr>, TAMex0925.1 <chr>,
+## #   TAMex0942.1 <chr>, TAMex0966.1 <chr>, TAMex1005.1 <chr>,
+## #   TAMex1136.1 <chr>, TAMex1165.1 <chr>, TAMex1340.1 <chr>,
+## #   TAMex1349.2 <chr>, TAMex1391.2 <chr>, TAMex1437.1 <chr>,
+## #   TAMex1508.4 <chr>, TAMex0050.1 <chr>, TAMex0106.1 <chr>,
+## #   TAMex0167.1 <chr>, TAMex0181.2 <chr>, TAMex0207.2 <chr>,
+## #   TAMex0438.1 <chr>, TAMex0515.1 <chr>, TAMex0517.1 <chr>,
+## #   TAMex0568.1 <chr>, TAMex0645.1 <chr>, TAMex0667.1 <chr>,
+## #   TAMex0757.1 <chr>, TAMex0845.2 <chr>, TAMex0849.3 <chr>,
+## #   TAMex0918.2 <chr>, TAMex0947.1 <chr>, TAMex0982.1 <chr>,
+## #   TAMex1139.2 <chr>, TAMex1298.4 <chr>, TAMex1348.3 <chr>,
+## #   TAMex1358.1 <chr>, TAMex1439.2 <chr>, TAMex1443.1 <chr>,
+## #   TAMex1467.1 <chr>, TAMex0267.2 <chr>, TAMex0280.3 <chr>,
+## #   TAMex0400.1 <chr>, TAMex0403.1 <chr>, TAMex0412.1 <chr>,
+## #   TAMex0495.1 <chr>, TAMex0514.1 <chr>, TAMex0544.1 <chr>,
+## #   TAMex0587.1 <chr>, TAMex0613.2 <chr>, TAMex0766.2 <chr>,
+## #   TAMex0785.1 <chr>, TAMex0874.1 <chr>, TAMex0897.2 <chr>,
+## #   TAMex1069.2 <chr>, TAMex1087.1 <chr>, TAMex1107.1 <chr>,
+## #   TAMex1160.1 <chr>, TAMex1178.1 <chr>, TAMex1246.3 <chr>, ...
+\end{verbatim}
+
+\subsection{Trim files to remove multiple or unknown positions from the
+files}\label{trim-files-to-remove-multiple-or-unknown-positions-from-the-files}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{SNP_tMaize<-}\StringTok{ }\KeywordTok{filter}\NormalTok{(SNP_tMaize, Chromosome }\OperatorTok{!=}\StringTok{ 'multiple'}\NormalTok{, Chromosome }\OperatorTok{!=}\StringTok{ 'unknown'}\NormalTok{, Position }\OperatorTok{!=}\StringTok{ 'multiple'}\NormalTok{)}
+\NormalTok{SNP_tMaize}\OperatorTok{$}\NormalTok{Chromosome <-}\StringTok{ }\KeywordTok{as.integer}\NormalTok{(SNP_tMaize}\OperatorTok{$}\NormalTok{Chromosome)}
+\NormalTok{SNP_tMaize}\OperatorTok{$}\NormalTok{Position <-}\StringTok{ }\KeywordTok{as.integer}\NormalTok{(SNP_tMaize}\OperatorTok{$}\NormalTok{Position)}
+\NormalTok{SNP_tMaize}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 939 x 1,577
+##    SNP_ID   Chromosome  Position ZDP_0752a ZDP_0793a ZDP_0612a ZDP_0602a
+##    <chr>         <int>     <int> <chr>     <chr>     <chr>     <chr>    
+##  1 abph1.20          2  27403404 C/G       C/G       C/C       C/G      
+##  2 abph1.22          2  27403892 A/A       A/A       A/A       A/A      
+##  3 ae1.3             5 167889790 T/T       T/T       T/T       G/T      
+##  4 ae1.4             5 167889682 G/G       G/G       G/G       A/G      
+##  5 ae1.5             5 167889821 C/C       C/T       C/C       C/T      
+##  6 an1.4             1 240498509 C/G       C/G       C/C       C/C      
+##  7 ba1.6             3 181362952 G/G       A/G       G/G       G/G      
+##  8 ba1.9             3 181362666 G/G       G/T       ?/?       G/G      
+##  9 bt2.5             4  66290049 C/C       C/C       C/C       C/C      
+## 10 bt2.7             4  66290994 ?/?       ?/?       G/G       G/G      
+## # ... with 929 more rows, and 1,570 more variables: ZDP_0581a <chr>,
+## #   ZDP_0552a <chr>, ZDP_0543a <chr>, ZDP_0042a <chr>, ZDP_0121a <chr>,
+## #   ZDP_0101b <chr>, ZDP_0087a <chr>, ZDP_0033a <chr>, ZDP_0373b <chr>,
+## #   ZDP_0168a <chr>, ZDP_0169a <chr>, ZDP_0517b <chr>, ZDP_1098a <chr>,
+## #   ZDP_0591a <chr>, ZDP_0258a <chr>, ZDP_0009a <chr>, ZDP_0016a <chr>,
+## #   ZDP_0010a <chr>, ZDP_0018a <chr>, ZDP_0647b <chr>, ZDP_1064b <chr>,
+## #   ZDP_1053a <chr>, ZDP_1445b <chr>, ZDP_0163a <chr>, ZDP_0164a <chr>,
+## #   ZDP_0166a <chr>, ZDP_0839a <chr>, ZDP_0849a <chr>, ZDP_0858b <chr>,
+## #   ZDP_0184b <chr>, ZDP_0179a <chr>, ZDP_0180a <chr>, ZDP_1021a <chr>,
+## #   ZDP_0181a <chr>, ZDP_1004a <chr>, S1799 <chr>, ZDP_0856a <chr>,
+## #   ZDP_0915b <chr>, ZDP_1194b <chr>, ZDP_1476a <chr>, ZDP_0935a <chr>,
+## #   ZDP_0197a <chr>, ZDP_0206a <chr>, ZDP_0195a <chr>, ZDP_0051a <chr>,
+## #   ZDP_0054a <chr>, ZDP_0052a <chr>, ZDP_0675b <chr>, ZDP_0791a <chr>,
+## #   ZDP_0814a <chr>, ZDP_0122a <chr>, ZDP_0090a <chr>, ZDP_0083a <chr>,
+## #   ZDP_0084a <chr>, ZDP_0061a <chr>, ZDP_0561a <chr>, ZDP_0057a <chr>,
+## #   ZDP_0570a <chr>, ZDP_0899b <chr>, ZDP_0888b <chr>, ZDP_1104a <chr>,
+## #   ZDP_1162a <chr>, S1579 <chr>, ZDP_0634a <chr>, S1843 <chr>,
+## #   ZDP_0689b <chr>, ZDP_0733b <chr>, ZDP_0758b <chr>, ZDP_1003b <chr>,
+## #   ZDP_1012a <chr>, ZDP_0640b <chr>, ZDP_0153a <chr>, ZDP_0154a <chr>,
+## #   ZDP_1020a <chr>, S1822 <chr>, ZDP_0994a <chr>, ZDP_1208a <chr>,
+## #   ZDP_1489a <chr>, ZDP_0123b <chr>, ZDP_1010a <chr>, ZDP_0001a <chr>,
+## #   ZDP_0174a <chr>, ZDP_0178a <chr>, ZDP_1221b <chr>, ZDP_1481a <chr>,
+## #   ZDP_0988a <chr>, ZDP_0456a <chr>, ZDP_0368b <chr>, ZDP_0376a <chr>,
+## #   BKN_003 <chr>, BKN_004 <chr>, ZDP_0396a <chr>, ZDP_0417a <chr>,
+## #   ZDP_0563a <chr>, ZDP_0727a <chr>, ZDP_0746b <chr>, ZDP_0756b <chr>,
+## #   ZDP_1126a <chr>, ZDP_1186a <chr>, ZDP_1100a <chr>, ...
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{SNP_tTeosinte<-}\StringTok{ }\KeywordTok{filter}\NormalTok{(SNP_tTeosinte, Chromosome }\OperatorTok{!=}\StringTok{ 'multiple'}\NormalTok{, Chromosome }\OperatorTok{!=}\StringTok{ 'unknown'}\NormalTok{, Position }\OperatorTok{!=}\StringTok{ 'multiple'}\NormalTok{)}
+\NormalTok{SNP_tTeosinte}\OperatorTok{$}\NormalTok{Chromosome <-}\StringTok{ }\KeywordTok{as.integer}\NormalTok{(SNP_tTeosinte}\OperatorTok{$}\NormalTok{Chromosome)}
+\NormalTok{SNP_tTeosinte}\OperatorTok{$}\NormalTok{Position <-}\StringTok{ }\KeywordTok{as.integer}\NormalTok{(SNP_tTeosinte}\OperatorTok{$}\NormalTok{Position)}
+\NormalTok{SNP_tTeosinte}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 939 x 979
+##    SNP_ID   Chromosome  Position S0881 S1057 S1087 S1689 S1697 S1698 S1703
+##    <chr>         <int>     <int> <chr> <chr> <chr> <chr> <chr> <chr> <chr>
+##  1 abph1.20          2  27403404 C/G   C/G   G/G   G/G   C/G   C/G   G/G  
+##  2 abph1.22          2  27403892 A/A   A/A   A/A   A/A   A/A   A/A   A/A  
+##  3 ae1.3             5 167889790 T/T   G/T   T/T   T/T   T/T   T/T   T/T  
+##  4 ae1.4             5 167889682 G/G   A/G   G/G   G/G   G/G   A/G   G/G  
+##  5 ae1.5             5 167889821 T/T   T/T   T/T   T/T   T/T   T/T   T/T  
+##  6 an1.4             1 240498509 C/C   C/C   C/C   C/C   C/C   C/C   C/C  
+##  7 ba1.6             3 181362952 A/G   A/A   A/A   A/A   A/A   A/A   A/A  
+##  8 ba1.9             3 181362666 G/G   G/G   G/G   G/G   G/G   G/G   G/G  
+##  9 bt2.5             4  66290049 T/T   C/T   C/T   C/C   C/C   C/T   C/C  
+## 10 bt2.7             4  66290994 A/A   A/A   A/A   A/A   A/A   A/A   A/A  
+## # ... with 929 more rows, and 969 more variables: S1704 <chr>,
+## #   TA057 <chr>, TA137 <chr>, TA153 <chr>, TA205 <chr>, TA217 <chr>,
+## #   TA242 <chr>, TA285 <chr>, TA293 <chr>, TAMex0091.1 <chr>,
+## #   TAMex0153.1 <chr>, TAMex0238.1 <chr>, TAMex0396.1 <chr>,
+## #   TAMex0446.1 <chr>, TAMex0455.2 <chr>, TAMex0520.1 <chr>,
+## #   TAMex0608.5 <chr>, TAMex0624.1 <chr>, TAMex0643.1 <chr>,
+## #   TAMex0775.2 <chr>, TAMex0930.1 <chr>, TAMex1083.1 <chr>,
+## #   TAMex1111.1 <chr>, TAMex1195.2 <chr>, TAMex1222.2 <chr>,
+## #   TAMex1308.1 <chr>, TAMex1321.1 <chr>, TAMex1344.2 <chr>,
+## #   TAMex1422.2 <chr>, TAMex1488.1 <chr>, TAMex1561.2 <chr>,
+## #   TAMex0005.1 <chr>, TAMex0077.1 <chr>, TAMex0240.2 <chr>,
+## #   TAMex0299.1 <chr>, TAMex0382.2 <chr>, TAMex0482.2 <chr>,
+## #   TAMex0483.1 <chr>, TAMex0488.1 <chr>, TAMex0509.1 <chr>,
+## #   TAMex0621.2 <chr>, TAMex0819.1 <chr>, TAMex0840.1 <chr>,
+## #   TAMex0855.2 <chr>, TAMex0901.2 <chr>, TAMex0925.1 <chr>,
+## #   TAMex0942.1 <chr>, TAMex0966.1 <chr>, TAMex1005.1 <chr>,
+## #   TAMex1136.1 <chr>, TAMex1165.1 <chr>, TAMex1340.1 <chr>,
+## #   TAMex1349.2 <chr>, TAMex1391.2 <chr>, TAMex1437.1 <chr>,
+## #   TAMex1508.4 <chr>, TAMex0050.1 <chr>, TAMex0106.1 <chr>,
+## #   TAMex0167.1 <chr>, TAMex0181.2 <chr>, TAMex0207.2 <chr>,
+## #   TAMex0438.1 <chr>, TAMex0515.1 <chr>, TAMex0517.1 <chr>,
+## #   TAMex0568.1 <chr>, TAMex0645.1 <chr>, TAMex0667.1 <chr>,
+## #   TAMex0757.1 <chr>, TAMex0845.2 <chr>, TAMex0849.3 <chr>,
+## #   TAMex0918.2 <chr>, TAMex0947.1 <chr>, TAMex0982.1 <chr>,
+## #   TAMex1139.2 <chr>, TAMex1298.4 <chr>, TAMex1348.3 <chr>,
+## #   TAMex1358.1 <chr>, TAMex1439.2 <chr>, TAMex1443.1 <chr>,
+## #   TAMex1467.1 <chr>, TAMex0267.2 <chr>, TAMex0280.3 <chr>,
+## #   TAMex0400.1 <chr>, TAMex0403.1 <chr>, TAMex0412.1 <chr>,
+## #   TAMex0495.1 <chr>, TAMex0514.1 <chr>, TAMex0544.1 <chr>,
+## #   TAMex0587.1 <chr>, TAMex0613.2 <chr>, TAMex0766.2 <chr>,
+## #   TAMex0785.1 <chr>, TAMex0874.1 <chr>, TAMex0897.2 <chr>,
+## #   TAMex1069.2 <chr>, TAMex1087.1 <chr>, TAMex1107.1 <chr>,
+## #   TAMex1160.1 <chr>, TAMex1178.1 <chr>, TAMex1246.3 <chr>, ...
+\end{verbatim}
+
+\subsection{\texorpdfstring{Sort the merged \& trimmed files by
+chromosomes and positions by
+`arrange()'}{Sort the merged \& trimmed files by chromosomes and positions by arrange()}}\label{sort-the-merged-trimmed-files-by-chromosomes-and-positions-by-arrange}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{SNP_tMaize_sorted<-}\KeywordTok{arrange}\NormalTok{(SNP_tMaize, Chromosome, Position)}
+\KeywordTok{tail}\NormalTok{(SNP_tMaize_sorted)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 6 x 1,577
+##   SNP_ID      Chromosome  Position ZDP_0752a ZDP_0793a ZDP_0612a ZDP_0602a
+##   <chr>            <int>     <int> <chr>     <chr>     <chr>     <chr>    
+## 1 PZB00055.1          10 140493174 C/C       C/C       C/G       C/C      
+## 2 PZA00727.11         10 142854665 C/C       C/T       C/C       C/C      
+## 3 PZA00727.12         10 142854744 A/A       A/G       G/G       A/A      
+## 4 PZA02969.11         10 143676107 C/C       ?/?       C/C       C/C      
+## 5 PZD00075.1          10 146599154 C/G       C/C       C/G       C/G      
+## 6 PZD00075.2          10 146599484 C/C       C/C       C/C       C/C      
+## # ... with 1,570 more variables: ZDP_0581a <chr>, ZDP_0552a <chr>,
+## #   ZDP_0543a <chr>, ZDP_0042a <chr>, ZDP_0121a <chr>, ZDP_0101b <chr>,
+## #   ZDP_0087a <chr>, ZDP_0033a <chr>, ZDP_0373b <chr>, ZDP_0168a <chr>,
+## #   ZDP_0169a <chr>, ZDP_0517b <chr>, ZDP_1098a <chr>, ZDP_0591a <chr>,
+## #   ZDP_0258a <chr>, ZDP_0009a <chr>, ZDP_0016a <chr>, ZDP_0010a <chr>,
+## #   ZDP_0018a <chr>, ZDP_0647b <chr>, ZDP_1064b <chr>, ZDP_1053a <chr>,
+## #   ZDP_1445b <chr>, ZDP_0163a <chr>, ZDP_0164a <chr>, ZDP_0166a <chr>,
+## #   ZDP_0839a <chr>, ZDP_0849a <chr>, ZDP_0858b <chr>, ZDP_0184b <chr>,
+## #   ZDP_0179a <chr>, ZDP_0180a <chr>, ZDP_1021a <chr>, ZDP_0181a <chr>,
+## #   ZDP_1004a <chr>, S1799 <chr>, ZDP_0856a <chr>, ZDP_0915b <chr>,
+## #   ZDP_1194b <chr>, ZDP_1476a <chr>, ZDP_0935a <chr>, ZDP_0197a <chr>,
+## #   ZDP_0206a <chr>, ZDP_0195a <chr>, ZDP_0051a <chr>, ZDP_0054a <chr>,
+## #   ZDP_0052a <chr>, ZDP_0675b <chr>, ZDP_0791a <chr>, ZDP_0814a <chr>,
+## #   ZDP_0122a <chr>, ZDP_0090a <chr>, ZDP_0083a <chr>, ZDP_0084a <chr>,
+## #   ZDP_0061a <chr>, ZDP_0561a <chr>, ZDP_0057a <chr>, ZDP_0570a <chr>,
+## #   ZDP_0899b <chr>, ZDP_0888b <chr>, ZDP_1104a <chr>, ZDP_1162a <chr>,
+## #   S1579 <chr>, ZDP_0634a <chr>, S1843 <chr>, ZDP_0689b <chr>,
+## #   ZDP_0733b <chr>, ZDP_0758b <chr>, ZDP_1003b <chr>, ZDP_1012a <chr>,
+## #   ZDP_0640b <chr>, ZDP_0153a <chr>, ZDP_0154a <chr>, ZDP_1020a <chr>,
+## #   S1822 <chr>, ZDP_0994a <chr>, ZDP_1208a <chr>, ZDP_1489a <chr>,
+## #   ZDP_0123b <chr>, ZDP_1010a <chr>, ZDP_0001a <chr>, ZDP_0174a <chr>,
+## #   ZDP_0178a <chr>, ZDP_1221b <chr>, ZDP_1481a <chr>, ZDP_0988a <chr>,
+## #   ZDP_0456a <chr>, ZDP_0368b <chr>, ZDP_0376a <chr>, BKN_003 <chr>,
+## #   BKN_004 <chr>, ZDP_0396a <chr>, ZDP_0417a <chr>, ZDP_0563a <chr>,
+## #   ZDP_0727a <chr>, ZDP_0746b <chr>, ZDP_0756b <chr>, ZDP_1126a <chr>,
+## #   ZDP_1186a <chr>, ZDP_1100a <chr>, ...
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{SNP_tTeosinte_sorted<-}\KeywordTok{arrange}\NormalTok{(SNP_tTeosinte, Chromosome, Position)}
+\KeywordTok{tail}\NormalTok{(SNP_tTeosinte_sorted)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 6 x 979
+##   SNP_ID     Chromosome Position S0881 S1057 S1087 S1689 S1697 S1698 S1703
+##   <chr>           <int>    <int> <chr> <chr> <chr> <chr> <chr> <chr> <chr>
+## 1 PZB00055.1         10   1.40e8 G/G   C/G   G/G   C/G   C/G   C/G   C/C  
+## 2 PZA00727.~         10   1.43e8 C/C   C/C   C/T   C/T   C/T   C/C   C/C  
+## 3 PZA00727.~         10   1.43e8 A/G   A/A   A/A   A/A   A/G   G/G   A/A  
+## 4 PZA02969.~         10   1.44e8 C/C   C/C   C/C   C/C   C/C   C/T   C/C  
+## 5 PZD00075.1         10   1.47e8 C/G   C/G   G/G   C/C   C/C   C/G   C/C  
+## 6 PZD00075.2         10   1.47e8 C/C   C/C   ?/?   C/C   ?/?   C/C   C/C  
+## # ... with 969 more variables: S1704 <chr>, TA057 <chr>, TA137 <chr>,
+## #   TA153 <chr>, TA205 <chr>, TA217 <chr>, TA242 <chr>, TA285 <chr>,
+## #   TA293 <chr>, TAMex0091.1 <chr>, TAMex0153.1 <chr>, TAMex0238.1 <chr>,
+## #   TAMex0396.1 <chr>, TAMex0446.1 <chr>, TAMex0455.2 <chr>,
+## #   TAMex0520.1 <chr>, TAMex0608.5 <chr>, TAMex0624.1 <chr>,
+## #   TAMex0643.1 <chr>, TAMex0775.2 <chr>, TAMex0930.1 <chr>,
+## #   TAMex1083.1 <chr>, TAMex1111.1 <chr>, TAMex1195.2 <chr>,
+## #   TAMex1222.2 <chr>, TAMex1308.1 <chr>, TAMex1321.1 <chr>,
+## #   TAMex1344.2 <chr>, TAMex1422.2 <chr>, TAMex1488.1 <chr>,
+## #   TAMex1561.2 <chr>, TAMex0005.1 <chr>, TAMex0077.1 <chr>,
+## #   TAMex0240.2 <chr>, TAMex0299.1 <chr>, TAMex0382.2 <chr>,
+## #   TAMex0482.2 <chr>, TAMex0483.1 <chr>, TAMex0488.1 <chr>,
+## #   TAMex0509.1 <chr>, TAMex0621.2 <chr>, TAMex0819.1 <chr>,
+## #   TAMex0840.1 <chr>, TAMex0855.2 <chr>, TAMex0901.2 <chr>,
+## #   TAMex0925.1 <chr>, TAMex0942.1 <chr>, TAMex0966.1 <chr>,
+## #   TAMex1005.1 <chr>, TAMex1136.1 <chr>, TAMex1165.1 <chr>,
+## #   TAMex1340.1 <chr>, TAMex1349.2 <chr>, TAMex1391.2 <chr>,
+## #   TAMex1437.1 <chr>, TAMex1508.4 <chr>, TAMex0050.1 <chr>,
+## #   TAMex0106.1 <chr>, TAMex0167.1 <chr>, TAMex0181.2 <chr>,
+## #   TAMex0207.2 <chr>, TAMex0438.1 <chr>, TAMex0515.1 <chr>,
+## #   TAMex0517.1 <chr>, TAMex0568.1 <chr>, TAMex0645.1 <chr>,
+## #   TAMex0667.1 <chr>, TAMex0757.1 <chr>, TAMex0845.2 <chr>,
+## #   TAMex0849.3 <chr>, TAMex0918.2 <chr>, TAMex0947.1 <chr>,
+## #   TAMex0982.1 <chr>, TAMex1139.2 <chr>, TAMex1298.4 <chr>,
+## #   TAMex1348.3 <chr>, TAMex1358.1 <chr>, TAMex1439.2 <chr>,
+## #   TAMex1443.1 <chr>, TAMex1467.1 <chr>, TAMex0267.2 <chr>,
+## #   TAMex0280.3 <chr>, TAMex0400.1 <chr>, TAMex0403.1 <chr>,
+## #   TAMex0412.1 <chr>, TAMex0495.1 <chr>, TAMex0514.1 <chr>,
+## #   TAMex0544.1 <chr>, TAMex0587.1 <chr>, TAMex0613.2 <chr>,
+## #   TAMex0766.2 <chr>, TAMex0785.1 <chr>, TAMex0874.1 <chr>,
+## #   TAMex0897.2 <chr>, TAMex1069.2 <chr>, TAMex1087.1 <chr>,
+## #   TAMex1107.1 <chr>, TAMex1160.1 <chr>, TAMex1178.1 <chr>,
+## #   TAMex1246.3 <chr>, ...
+\end{verbatim}
+
+\subsection{\texorpdfstring{Seperating files by chromosomes by
+increasing orders of positions, missing value by
+`?'}{Seperating files by chromosomes by increasing orders of positions, missing value by ?}}\label{seperating-files-by-chromosomes-by-increasing-orders-of-positions-missing-value-by}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\DecValTok{10}\NormalTok{)\{}
+\NormalTok{  filename <-}\StringTok{ }\KeywordTok{paste}\NormalTok{(}\StringTok{"../Output/"}\NormalTok{, }\StringTok{"Maize_inc_chr"}\NormalTok{, i, }\StringTok{".txt"}\NormalTok{, }\DataTypeTok{sep =} \StringTok{""}\NormalTok{)}
+  \KeywordTok{write_tsv}\NormalTok{(}\KeywordTok{filter}\NormalTok{(SNP_tMaize_sorted, Chromosome }\OperatorTok{==}\StringTok{ }\NormalTok{i), filename, }\DataTypeTok{col_names =}\NormalTok{ T)}
+\NormalTok{\}}
+
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\DecValTok{10}\NormalTok{)\{}
+\NormalTok{  filename <-}\StringTok{ }\KeywordTok{paste}\NormalTok{(}\StringTok{"../Output/"}\NormalTok{, }\StringTok{"Teosinte_inc_chr"}\NormalTok{, i, }\StringTok{".txt"}\NormalTok{, }\DataTypeTok{sep =} \StringTok{""}\NormalTok{)}
+  \KeywordTok{write_tsv}\NormalTok{(}\KeywordTok{filter}\NormalTok{(SNP_tTeosinte_sorted, Chromosome }\OperatorTok{==}\StringTok{ }\NormalTok{i), filename, }\DataTypeTok{col_names =}\NormalTok{ T)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{\texorpdfstring{Seperating files by chromosomes by
+increasing orders of positions, missing value by
+`-'}{Seperating files by chromosomes by increasing orders of positions, missing value by -}}\label{seperating-files-by-chromosomes-by-increasing-orders-of-positions-missing-value-by--}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# first replace the missing value with "-"}
+\NormalTok{SNP_tMaize_sorted[SNP_tMaize_sorted }\OperatorTok{==}\StringTok{ "?/?"}\NormalTok{] <-}\StringTok{ "-/-"}
+\NormalTok{SNP_tMaize_sorted}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 939 x 1,577
+##    SNP_ID      Chromosome Position ZDP_0752a ZDP_0793a ZDP_0612a ZDP_0602a
+##    <chr>            <int>    <int> <chr>     <chr>     <chr>     <chr>    
+##  1 PZB00859.1           1   157104 C/C       C/C       A/C       C/C      
+##  2 PZA02962.13          1  3205252 T/T       T/T       T/T       T/T      
+##  3 PZA00393.1           1  4175293 C/T       C/C       T/T       T/T      
+##  4 PZA00393.4           1  4175573 G/G       G/G       G/G       G/G      
+##  5 PZA02869.8           1  4429897 C/C       C/C       -/-       -/-      
+##  6 PZA02869.2           1  4430055 T/T       T/T       C/T       -/-      
+##  7 PZD00021.4           1  4835472 G/G       G/G       G/G       G/G      
+##  8 PZD00021.2           1  4835540 T/T       -/-       T/T       T/T      
+##  9 PZD00021.5           1  4835596 A/A       A/A       A/A       A/A      
+## 10 zagl1.6              1  4835658 T/T       T/T       T/T       T/T      
+## # ... with 929 more rows, and 1,570 more variables: ZDP_0581a <chr>,
+## #   ZDP_0552a <chr>, ZDP_0543a <chr>, ZDP_0042a <chr>, ZDP_0121a <chr>,
+## #   ZDP_0101b <chr>, ZDP_0087a <chr>, ZDP_0033a <chr>, ZDP_0373b <chr>,
+## #   ZDP_0168a <chr>, ZDP_0169a <chr>, ZDP_0517b <chr>, ZDP_1098a <chr>,
+## #   ZDP_0591a <chr>, ZDP_0258a <chr>, ZDP_0009a <chr>, ZDP_0016a <chr>,
+## #   ZDP_0010a <chr>, ZDP_0018a <chr>, ZDP_0647b <chr>, ZDP_1064b <chr>,
+## #   ZDP_1053a <chr>, ZDP_1445b <chr>, ZDP_0163a <chr>, ZDP_0164a <chr>,
+## #   ZDP_0166a <chr>, ZDP_0839a <chr>, ZDP_0849a <chr>, ZDP_0858b <chr>,
+## #   ZDP_0184b <chr>, ZDP_0179a <chr>, ZDP_0180a <chr>, ZDP_1021a <chr>,
+## #   ZDP_0181a <chr>, ZDP_1004a <chr>, S1799 <chr>, ZDP_0856a <chr>,
+## #   ZDP_0915b <chr>, ZDP_1194b <chr>, ZDP_1476a <chr>, ZDP_0935a <chr>,
+## #   ZDP_0197a <chr>, ZDP_0206a <chr>, ZDP_0195a <chr>, ZDP_0051a <chr>,
+## #   ZDP_0054a <chr>, ZDP_0052a <chr>, ZDP_0675b <chr>, ZDP_0791a <chr>,
+## #   ZDP_0814a <chr>, ZDP_0122a <chr>, ZDP_0090a <chr>, ZDP_0083a <chr>,
+## #   ZDP_0084a <chr>, ZDP_0061a <chr>, ZDP_0561a <chr>, ZDP_0057a <chr>,
+## #   ZDP_0570a <chr>, ZDP_0899b <chr>, ZDP_0888b <chr>, ZDP_1104a <chr>,
+## #   ZDP_1162a <chr>, S1579 <chr>, ZDP_0634a <chr>, S1843 <chr>,
+## #   ZDP_0689b <chr>, ZDP_0733b <chr>, ZDP_0758b <chr>, ZDP_1003b <chr>,
+## #   ZDP_1012a <chr>, ZDP_0640b <chr>, ZDP_0153a <chr>, ZDP_0154a <chr>,
+## #   ZDP_1020a <chr>, S1822 <chr>, ZDP_0994a <chr>, ZDP_1208a <chr>,
+## #   ZDP_1489a <chr>, ZDP_0123b <chr>, ZDP_1010a <chr>, ZDP_0001a <chr>,
+## #   ZDP_0174a <chr>, ZDP_0178a <chr>, ZDP_1221b <chr>, ZDP_1481a <chr>,
+## #   ZDP_0988a <chr>, ZDP_0456a <chr>, ZDP_0368b <chr>, ZDP_0376a <chr>,
+## #   BKN_003 <chr>, BKN_004 <chr>, ZDP_0396a <chr>, ZDP_0417a <chr>,
+## #   ZDP_0563a <chr>, ZDP_0727a <chr>, ZDP_0746b <chr>, ZDP_0756b <chr>,
+## #   ZDP_1126a <chr>, ZDP_1186a <chr>, ZDP_1100a <chr>, ...
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# USe pipe to put multiple functions together}
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\DecValTok{10}\NormalTok{)\{}
+\NormalTok{  filename <-}\StringTok{ }\KeywordTok{paste}\NormalTok{(}\StringTok{"../Output/"}\NormalTok{, }\StringTok{"Maize_dec_chr"}\NormalTok{, i, }\StringTok{".txt"}\NormalTok{, }\DataTypeTok{sep =} \StringTok{""}\NormalTok{) }\CommentTok{#set the path and filename for write_tsv}
+\NormalTok{  SNP_tMaize_sorted }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{filter}\NormalTok{(Chromosome }\OperatorTok{==}\StringTok{ }\NormalTok{i) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{arrange}\NormalTok{ (}\KeywordTok{desc}\NormalTok{(Position)) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{write_tsv}\NormalTok{(filename, }\DataTypeTok{col_names =}\NormalTok{ T)}
+\NormalTok{\}}
+
+\CommentTok{# first replace the missing value with "-"}
+\NormalTok{SNP_tTeosinte_sorted[SNP_tTeosinte_sorted }\OperatorTok{==}\StringTok{ "?/?"}\NormalTok{] <-}\StringTok{ "-/-"}
+\NormalTok{SNP_tTeosinte_sorted}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 939 x 979
+##    SNP_ID    Chromosome Position S0881 S1057 S1087 S1689 S1697 S1698 S1703
+##    <chr>          <int>    <int> <chr> <chr> <chr> <chr> <chr> <chr> <chr>
+##  1 PZB00859~          1   157104 A/A   A/C   A/A   C/C   A/C   C/C   C/C  
+##  2 PZA02962~          1  3205252 T/T   A/A   T/T   A/T   A/T   T/T   T/T  
+##  3 PZA00393~          1  4175293 T/T   T/T   T/T   C/T   C/T   C/T   C/T  
+##  4 PZA00393~          1  4175573 G/G   A/G   G/G   G/G   G/G   G/G   G/G  
+##  5 PZA02869~          1  4429897 C/C   C/C   C/C   C/C   C/C   C/C   C/C  
+##  6 PZA02869~          1  4430055 T/T   T/T   T/T   T/T   T/T   T/T   C/C  
+##  7 PZD00021~          1  4835472 G/G   G/G   G/G   G/G   G/G   G/G   -/-  
+##  8 PZD00021~          1  4835540 C/C   C/C   T/T   C/C   C/T   T/T   C/C  
+##  9 PZD00021~          1  4835596 A/T   A/A   A/A   A/A   A/T   A/A   A/A  
+## 10 zagl1.6            1  4835658 C/T   C/T   T/T   T/T   C/T   C/T   C/C  
+## # ... with 929 more rows, and 969 more variables: S1704 <chr>,
+## #   TA057 <chr>, TA137 <chr>, TA153 <chr>, TA205 <chr>, TA217 <chr>,
+## #   TA242 <chr>, TA285 <chr>, TA293 <chr>, TAMex0091.1 <chr>,
+## #   TAMex0153.1 <chr>, TAMex0238.1 <chr>, TAMex0396.1 <chr>,
+## #   TAMex0446.1 <chr>, TAMex0455.2 <chr>, TAMex0520.1 <chr>,
+## #   TAMex0608.5 <chr>, TAMex0624.1 <chr>, TAMex0643.1 <chr>,
+## #   TAMex0775.2 <chr>, TAMex0930.1 <chr>, TAMex1083.1 <chr>,
+## #   TAMex1111.1 <chr>, TAMex1195.2 <chr>, TAMex1222.2 <chr>,
+## #   TAMex1308.1 <chr>, TAMex1321.1 <chr>, TAMex1344.2 <chr>,
+## #   TAMex1422.2 <chr>, TAMex1488.1 <chr>, TAMex1561.2 <chr>,
+## #   TAMex0005.1 <chr>, TAMex0077.1 <chr>, TAMex0240.2 <chr>,
+## #   TAMex0299.1 <chr>, TAMex0382.2 <chr>, TAMex0482.2 <chr>,
+## #   TAMex0483.1 <chr>, TAMex0488.1 <chr>, TAMex0509.1 <chr>,
+## #   TAMex0621.2 <chr>, TAMex0819.1 <chr>, TAMex0840.1 <chr>,
+## #   TAMex0855.2 <chr>, TAMex0901.2 <chr>, TAMex0925.1 <chr>,
+## #   TAMex0942.1 <chr>, TAMex0966.1 <chr>, TAMex1005.1 <chr>,
+## #   TAMex1136.1 <chr>, TAMex1165.1 <chr>, TAMex1340.1 <chr>,
+## #   TAMex1349.2 <chr>, TAMex1391.2 <chr>, TAMex1437.1 <chr>,
+## #   TAMex1508.4 <chr>, TAMex0050.1 <chr>, TAMex0106.1 <chr>,
+## #   TAMex0167.1 <chr>, TAMex0181.2 <chr>, TAMex0207.2 <chr>,
+## #   TAMex0438.1 <chr>, TAMex0515.1 <chr>, TAMex0517.1 <chr>,
+## #   TAMex0568.1 <chr>, TAMex0645.1 <chr>, TAMex0667.1 <chr>,
+## #   TAMex0757.1 <chr>, TAMex0845.2 <chr>, TAMex0849.3 <chr>,
+## #   TAMex0918.2 <chr>, TAMex0947.1 <chr>, TAMex0982.1 <chr>,
+## #   TAMex1139.2 <chr>, TAMex1298.4 <chr>, TAMex1348.3 <chr>,
+## #   TAMex1358.1 <chr>, TAMex1439.2 <chr>, TAMex1443.1 <chr>,
+## #   TAMex1467.1 <chr>, TAMex0267.2 <chr>, TAMex0280.3 <chr>,
+## #   TAMex0400.1 <chr>, TAMex0403.1 <chr>, TAMex0412.1 <chr>,
+## #   TAMex0495.1 <chr>, TAMex0514.1 <chr>, TAMex0544.1 <chr>,
+## #   TAMex0587.1 <chr>, TAMex0613.2 <chr>, TAMex0766.2 <chr>,
+## #   TAMex0785.1 <chr>, TAMex0874.1 <chr>, TAMex0897.2 <chr>,
+## #   TAMex1069.2 <chr>, TAMex1087.1 <chr>, TAMex1107.1 <chr>,
+## #   TAMex1160.1 <chr>, TAMex1178.1 <chr>, TAMex1246.3 <chr>, ...
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# USe pipe to put multiple functions together}
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\DecValTok{10}\NormalTok{)\{}
+\NormalTok{  filename <-}\StringTok{ }\KeywordTok{paste}\NormalTok{(}\StringTok{"../Output/"}\NormalTok{, }\StringTok{"Teosinte_dec_chr"}\NormalTok{, i, }\StringTok{".txt"}\NormalTok{, }\DataTypeTok{sep =} \StringTok{""}\NormalTok{) }\CommentTok{#set the path and filename for write_tsv}
+\NormalTok{  SNP_tTeosinte_sorted }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{filter}\NormalTok{(Chromosome }\OperatorTok{==}\StringTok{ }\NormalTok{i) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{arrange}\NormalTok{ (}\KeywordTok{desc}\NormalTok{(Position)) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{write_tsv}\NormalTok{(filename, }\DataTypeTok{col_names =}\NormalTok{ T)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\subsubsection{Part II}\label{part-ii}
+
+\subsection{Reshape}\label{reshape}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(reshape2)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Attaching package: 'reshape2'
+\end{verbatim}
+
+\begin{verbatim}
+## The following object is masked from 'package:tidyr':
+## 
+##     smiths
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Geno2 <-}\StringTok{ }\NormalTok{Geno [,}\OperatorTok{-}\DecValTok{2}\NormalTok{]}
+\NormalTok{Geno2}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 2,782 x 985
+##    Sample_ID Group abph1.20 abph1.22 ae1.3 ae1.4 ae1.5 an1.4 ba1.6 ba1.9
+##    <chr>     <chr> <chr>    <chr>    <chr> <chr> <chr> <chr> <chr> <chr>
+##  1 SL-15     TRIPS ?/?      ?/?      T/T   G/G   T/T   C/C   ?/?   G/G  
+##  2 SL-16     TRIPS ?/?      ?/?      T/T   ?/?   T/T   C/C   A/G   G/G  
+##  3 SL-11     TRIPS ?/?      ?/?      T/T   G/G   T/T   ?/?   G/G   G/G  
+##  4 SL-12     TRIPS ?/?      ?/?      T/T   G/G   T/T   C/C   G/G   G/G  
+##  5 SL-18     TRIPS ?/?      ?/?      T/T   G/G   T/T   C/C   ?/?   G/G  
+##  6 SL-2      TRIPS ?/?      ?/?      T/T   G/G   T/T   C/C   A/G   G/G  
+##  7 SL-4      TRIPS ?/?      ?/?      T/T   G/G   T/T   C/C   G/G   G/G  
+##  8 SL-6      TRIPS ?/?      ?/?      T/T   G/G   T/T   C/C   ?/?   G/G  
+##  9 SL-7      TRIPS ?/?      ?/?      T/T   G/G   T/T   C/C   G/G   G/G  
+## 10 SL-5      TRIPS ?/?      ?/?      T/T   G/G   T/T   C/C   ?/?   G/G  
+## # ... with 2,772 more rows, and 975 more variables: bt2.5 <chr>,
+## #   bt2.7 <chr>, bt2.8 <chr>, Fea2.1 <chr>, Fea2.5 <chr>, id1.3 <chr>,
+## #   lg2.11 <chr>, lg2.2 <chr>, pbf1.1 <chr>, pbf1.2 <chr>, pbf1.3 <chr>,
+## #   pbf1.5 <chr>, pbf1.6 <chr>, pbf1.7 <chr>, pbf1.8 <chr>,
+## #   PZA00003.11 <chr>, PZA00004.2 <chr>, PZA00005.8 <chr>,
+## #   PZA00005.9 <chr>, PZA00006.13 <chr>, PZA00006.14 <chr>,
+## #   PZA00008.1 <chr>, PZA00010.5 <chr>, PZA00013.10 <chr>,
+## #   PZA00013.11 <chr>, PZA00013.9 <chr>, PZA00015.4 <chr>,
+## #   PZA00017.1 <chr>, PZA00018.5 <chr>, PZA00029.11 <chr>,
+## #   PZA00029.12 <chr>, PZA00030.11 <chr>, PZA00031.5 <chr>,
+## #   PZA00041.3 <chr>, PZA00042.2 <chr>, PZA00042.5 <chr>,
+## #   PZA00043.7 <chr>, PZA00045.1 <chr>, PZA00047.2 <chr>,
+## #   PZA00049.12 <chr>, PZA00050.9 <chr>, PZA00051.2 <chr>,
+## #   PZA00058.5 <chr>, PZA00058.6 <chr>, PZA00060.2 <chr>,
+## #   PZA00061.1 <chr>, PZA00065.2 <chr>, PZA00069.4 <chr>,
+## #   PZA00070.5 <chr>, PZA00078.2 <chr>, PZA00079.1 <chr>,
+## #   PZA00081.17 <chr>, PZA00084.2 <chr>, PZA00084.3 <chr>,
+## #   PZA00086.8 <chr>, PZA00088.3 <chr>, PZA00090.2 <chr>,
+## #   PZA00092.1 <chr>, PZA00092.5 <chr>, PZA00093.2 <chr>,
+## #   PZA00096.26 <chr>, PZA00097.13 <chr>, PZA00098.14 <chr>,
+## #   PZA00100.10 <chr>, PZA00100.12 <chr>, PZA00100.14 <chr>,
+## #   PZA00100.9 <chr>, PZA00103.20 <chr>, PZA00106.9 <chr>,
+## #   PZA00107.18 <chr>, PZA00108.12 <chr>, PZA00108.14 <chr>,
+## #   PZA00108.15 <chr>, PZA00109.3 <chr>, PZA00109.5 <chr>,
+## #   PZA00111.2 <chr>, PZA00111.4 <chr>, PZA00111.5 <chr>,
+## #   PZA00111.6 <chr>, PZA00111.8 <chr>, PZA00114.3 <chr>,
+## #   PZA00116.2 <chr>, PZA00119.4 <chr>, PZA00120.4 <chr>,
+## #   PZA00123.1 <chr>, PZA00125.2 <chr>, PZA00131.14 <chr>,
+## #   PZA00132.17 <chr>, PZA00132.18 <chr>, PZA00132.3 <chr>,
+## #   PZA00135.6 <chr>, PZA00137.2 <chr>, PZA00139.14 <chr>,
+## #   PZA00140.10 <chr>, PZA00140.6 <chr>, PZA00140.9 <chr>,
+## #   PZA00142.6 <chr>, PZA00148.2 <chr>, PZA00153.3 <chr>,
+## #   PZA00153.6 <chr>, ...
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Geno2_melt <-}\StringTok{ }\KeywordTok{melt}\NormalTok{(Geno2, }\DataTypeTok{id =} \KeywordTok{c}\NormalTok{(}\StringTok{"Sample_ID"}\NormalTok{, }\StringTok{"Group"}\NormalTok{))}
+\KeywordTok{colnames}\NormalTok{(Geno2_melt)[}\DecValTok{3}\NormalTok{] <-}\StringTok{ "SNP_ID"}
+\KeywordTok{colnames}\NormalTok{(Geno2_melt)[}\DecValTok{4}\NormalTok{] <-}\StringTok{ "SNP_call"}
+\KeywordTok{head}\NormalTok{(Geno2_melt)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   Sample_ID Group   SNP_ID SNP_call
+## 1     SL-15 TRIPS abph1.20      ?/?
+## 2     SL-16 TRIPS abph1.20      ?/?
+## 3     SL-11 TRIPS abph1.20      ?/?
+## 4     SL-12 TRIPS abph1.20      ?/?
+## 5     SL-18 TRIPS abph1.20      ?/?
+## 6      SL-2 TRIPS abph1.20      ?/?
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Geno2_melt_SNPinfo <-}\StringTok{ }\KeywordTok{merge}\NormalTok{(Geno2_melt,RedSNP, }\DataTypeTok{by =} \StringTok{"SNP_ID"}\NormalTok{)}
+\NormalTok{Geno2_melt_SNPinfo <-}\StringTok{ }\KeywordTok{filter}\NormalTok{(Geno2_melt_SNPinfo, Chromosome }\OperatorTok{!=}\StringTok{ 'multiple'}\NormalTok{, Chromosome }\OperatorTok{!=}\StringTok{ 'unknown'}\NormalTok{, Position }\OperatorTok{!=}\StringTok{ 'multiple'}\NormalTok{)}
+
+\NormalTok{Geno2_melt_SNPinfo}\OperatorTok{$}\NormalTok{Chromosome =}\StringTok{ }\KeywordTok{as.integer}\NormalTok{(Geno2_melt_SNPinfo}\OperatorTok{$}\NormalTok{Chromosome)}
+\NormalTok{Geno2_melt_SNPinfo <-}\StringTok{ }\KeywordTok{arrange}\NormalTok{(Geno2_melt_SNPinfo, Chromosome)}
+
+\KeywordTok{head}\NormalTok{(Geno2_melt_SNPinfo)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   SNP_ID Sample_ID Group SNP_call Chromosome  Position
+## 1  an1.4     SL-15 TRIPS      C/C          1 240498509
+## 2  an1.4     SL-16 TRIPS      C/C          1 240498509
+## 3  an1.4     SL-11 TRIPS      ?/?          1 240498509
+## 4  an1.4     SL-12 TRIPS      C/C          1 240498509
+## 5  an1.4     SL-18 TRIPS      C/C          1 240498509
+## 6  an1.4      SL-2 TRIPS      C/C          1 240498509
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{tail}\NormalTok{(Geno2_melt_SNPinfo)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##             SNP_ID Sample_ID Group SNP_call Chromosome  Position
+## 2612293 PZD00075.2    SYN262 ZMMIL      C/C         10 146599484
+## 2612294 PZD00075.2     S0398 ZMMIL      ?/?         10 146599484
+## 2612295 PZD00075.2     S1636 ZMMIL      ?/?         10 146599484
+## 2612296 PZD00075.2    CU0201 ZMMIL      C/C         10 146599484
+## 2612297 PZD00075.2     S0215 ZMMIL      C/C         10 146599484
+## 2612298 PZD00075.2    CU0202 ZMMIL      C/C         10 146599484
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Group_SNP_counts <-}\StringTok{ }\NormalTok{Geno2_melt_SNPinfo }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{group_by}\NormalTok{ (Group, SNP_ID, SNP_call, Chromosome) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{summarise}\NormalTok{ (}\DataTypeTok{row_counts =} \KeywordTok{n}\NormalTok{()) }
+\KeywordTok{head}\NormalTok{(Group_SNP_counts, }\DataTypeTok{n=}\NormalTok{12L)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 12 x 5
+## # Groups:   Group, SNP_ID, SNP_call [12]
+##    Group SNP_ID   SNP_call Chromosome row_counts
+##    <chr> <fct>    <chr>         <int>      <int>
+##  1 TRIPS abph1.20 ?/?               2         22
+##  2 TRIPS abph1.22 ?/?               2         20
+##  3 TRIPS abph1.22 A/A               2          2
+##  4 TRIPS ae1.3    T/T               5         22
+##  5 TRIPS ae1.4    ?/?               5          3
+##  6 TRIPS ae1.4    A/A               5          1
+##  7 TRIPS ae1.4    G/G               5         18
+##  8 TRIPS ae1.5    ?/?               5          4
+##  9 TRIPS ae1.5    T/T               5         18
+## 10 TRIPS an1.4    ?/?               1          2
+## 11 TRIPS an1.4    C/C               1         20
+## 12 TRIPS ba1.6    ?/?               3          6
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Group_variableSNP <-}\StringTok{ }\NormalTok{Group_SNP_counts }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{group_by}\NormalTok{ (Group, SNP_ID, Chromosome) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{summarise}\NormalTok{(}\DataTypeTok{SNP_call_types =} \KeywordTok{n}\NormalTok{())}
+\KeywordTok{head}\NormalTok{(Group_variableSNP)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 6 x 4
+## # Groups:   Group, SNP_ID [6]
+##   Group SNP_ID   Chromosome SNP_call_types
+##   <chr> <fct>         <int>          <int>
+## 1 TRIPS abph1.20          2              1
+## 2 TRIPS abph1.22          2              2
+## 3 TRIPS ae1.3             5              1
+## 4 TRIPS ae1.4             5              3
+## 5 TRIPS ae1.5             5              2
+## 6 TRIPS an1.4             1              2
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{VariableSNPs <-}\StringTok{ }\KeywordTok{filter}\NormalTok{(Group_variableSNP, SNP_call_types}\OperatorTok{>}\DecValTok{1}\NormalTok{)}
+\KeywordTok{head}\NormalTok{(VariableSNPs, }\DataTypeTok{n=}\NormalTok{12L)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 12 x 4
+## # Groups:   Group, SNP_ID [12]
+##    Group SNP_ID   Chromosome SNP_call_types
+##    <chr> <fct>         <int>          <int>
+##  1 TRIPS abph1.22          2              2
+##  2 TRIPS ae1.4             5              3
+##  3 TRIPS ae1.5             5              2
+##  4 TRIPS an1.4             1              2
+##  5 TRIPS ba1.6             3              3
+##  6 TRIPS ba1.9             3              3
+##  7 TRIPS bt2.5             4              2
+##  8 TRIPS bt2.7             4              2
+##  9 TRIPS Fea2.1            4              2
+## 10 TRIPS lg2.2             3              2
+## 11 TRIPS pbf1.1            2              2
+## 12 TRIPS pbf1.2            2              2
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{SNPbyChr <-}\StringTok{ }\NormalTok{VariableSNPs }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{group_by}\NormalTok{ (Chromosome, Group) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{summarise}\NormalTok{(}\DataTypeTok{SNPcounts =}\KeywordTok{n}\NormalTok{())}
+
+\NormalTok{SNPbyChr <-}\StringTok{ }\KeywordTok{arrange}\NormalTok{(SNPbyChr, Chromosome, }\KeywordTok{desc}\NormalTok{(SNPcounts))}
+\NormalTok{SNPbyChr}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 160 x 3
+## # Groups:   Chromosome [10]
+##    Chromosome Group SNPcounts
+##         <int> <chr>     <int>
+##  1          1 ZMMIL       155
+##  2          1 ZMMLR       155
+##  3          1 ZMPBA       155
+##  4          1 ZMPIL       153
+##  5          1 ZMXCP       153
+##  6          1 ZMXCH       149
+##  7          1 ZMPJA       142
+##  8          1 ZMMMR       121
+##  9          1 TRIPS       105
+## 10          1 ZLUXR       100
+## # ... with 150 more rows
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{SNPbyChr2 <-}\StringTok{ }\NormalTok{VariableSNPs }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{group_by}\NormalTok{(Chromosome) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{summarise}\NormalTok{(}\DataTypeTok{SNPcountsAllGroup=}\KeywordTok{n}\NormalTok{())}
+\NormalTok{SNPbyChr2}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 10 x 2
+##    Chromosome SNPcountsAllGroup
+##         <int>             <int>
+##  1          1              1835
+##  2          2              1534
+##  3          3              1305
+##  4          4              1028
+##  5          5              1487
+##  6          6               927
+##  7          7              1169
+##  8          8               727
+##  9          9               681
+## 10         10               645
+\end{verbatim}
+
+\section{Plots}\label{plots}
+
+\section{SNPs per chromosome}\label{snps-per-chromosome}
+
+Here we define SNPs are only the SNP varies withine a certain group.
+Those monoallelic SNPs are excluded.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# To plot with all the SNPs in each chromosome, including all the groups}
+\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ SNPbyChr2) }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_col}\NormalTok{ (}\DataTypeTok{mapping=}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x=}\NormalTok{Chromosome, }\DataTypeTok{y=}\NormalTok{SNPcountsAllGroup)) }\OperatorTok{+}\StringTok{ }\KeywordTok{scale_x_continuous}\NormalTok{(}\DataTypeTok{breaks =} \KeywordTok{c}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{10}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{R_Assignment_Markdown_code_files/figure-latex/plot SNPs per chromosome-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggsave}\NormalTok{(}\StringTok{"../Output/SNPsPerChr.png"}\NormalTok{, }\DataTypeTok{width =}\DecValTok{6}\NormalTok{, }\DataTypeTok{height=}\DecValTok{5}\NormalTok{)}
+
+\CommentTok{# To plot the number of SNPs from each group in each chromosome. Each group is color coded differently.}
+\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ SNPbyChr) }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_point}\NormalTok{ (}\DataTypeTok{mapping=}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x=}\NormalTok{Chromosome, }\DataTypeTok{y=}\NormalTok{SNPcounts, }\DataTypeTok{color=}\NormalTok{ Group),}\DataTypeTok{size=}\DecValTok{4}\NormalTok{,}\DataTypeTok{alpha=}\FloatTok{0.7}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{scale_x_continuous}\NormalTok{(}\DataTypeTok{breaks =} \KeywordTok{c}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{10}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{R_Assignment_Markdown_code_files/figure-latex/plot SNPs per chromosome-2.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggsave}\NormalTok{(}\StringTok{"../Output/SNPsPerChrByGroup.png"}\NormalTok{, }\DataTypeTok{width =}\DecValTok{6}\NormalTok{, }\DataTypeTok{height=}\DecValTok{5}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+This result shows us that different groups have different level of
+multi-allelic SNPs. ZMMIL, ZMMLR, ZMPBA, ZMPIL, and ZMXCP tends to have
+more multi-allelic SNPs than ZPERR, ZMXNT, ZDIPL, and ZMXNO.
+
+\section{Missing data and amount of
+heterozygosity}\label{missing-data-and-amount-of-heterozygosity}
+
+\section{Reshape for heterozygous and missing
+data}\label{reshape-for-heterozygous-and-missing-data}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Create a function to convert Heterozygous to H, and missing to NA}
+\NormalTok{hetNA <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{ (x) \{}
+  \ControlFlowTok{if}\NormalTok{ (x }\OperatorTok{==}\StringTok{ "A/A"}\OperatorTok{|}\StringTok{ }\NormalTok{x }\OperatorTok{==}\StringTok{"T/T"} \OperatorTok{|}\StringTok{ }\NormalTok{x }\OperatorTok{==}\StringTok{"C/C"}\OperatorTok{|}\StringTok{ }\NormalTok{x }\OperatorTok{==}\StringTok{"G/G"}\NormalTok{) \{}
+    \KeywordTok{return}\NormalTok{(}\StringTok{"Homozygous"}\NormalTok{)}
+\NormalTok{  \}}\ControlFlowTok{else} \ControlFlowTok{if}\NormalTok{ (x }\OperatorTok{==}\StringTok{ "?/?"}\NormalTok{)\{}
+    \KeywordTok{return}\NormalTok{(}\StringTok{"NA"}\NormalTok{)}
+\NormalTok{  \}}\ControlFlowTok{else}\NormalTok{\{}
+    \KeywordTok{return}\NormalTok{(}\StringTok{"Heterozygous"}\NormalTok{)}
+\NormalTok{  \}}
+\NormalTok{\}}
+
+\NormalTok{species <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{ (x) \{}
+  \ControlFlowTok{if}\NormalTok{(x}\OperatorTok{==}\StringTok{'ZMMIL'}\OperatorTok{|}\NormalTok{x}\OperatorTok{==}\StringTok{'ZMMLR'}\OperatorTok{|}\NormalTok{x}\OperatorTok{==}\StringTok{'ZMMMR'}\NormalTok{)\{}
+    \KeywordTok{return}\NormalTok{(}\StringTok{"Maize"}\NormalTok{)}
+\NormalTok{  \}}\ControlFlowTok{else} \ControlFlowTok{if}\NormalTok{(x}\OperatorTok{==}\StringTok{ 'ZMPBA'}\OperatorTok{|}\StringTok{ }\NormalTok{x}\OperatorTok{==}\StringTok{'ZMPIL'}\OperatorTok{|}\NormalTok{x}\OperatorTok{==}\StringTok{'ZMPJA'}\NormalTok{)\{}
+    \KeywordTok{return}\NormalTok{(}\StringTok{"Teosinte"}\NormalTok{)}
+\NormalTok{  \}}\ControlFlowTok{else}\NormalTok{ \{}
+    \KeywordTok{return}\NormalTok{(}\StringTok{"Other"}\NormalTok{)}
+\NormalTok{  \}}
+\NormalTok{\}}
+
+\CommentTok{# Create a new column with name HetNA}
+\NormalTok{Geno2_melt_SNPinfo_HetNA <-}\StringTok{ }\NormalTok{Geno2_melt_SNPinfo}
+\NormalTok{Geno2_melt_SNPinfo_HetNA}\OperatorTok{$}\NormalTok{HetNA <-}\StringTok{ }\KeywordTok{sapply}\NormalTok{(Geno2_melt_SNPinfo_HetNA}\OperatorTok{$}\NormalTok{SNP_call, hetNA)}
+\NormalTok{Geno2_melt_SNPinfo_HetNA}\OperatorTok{$}\NormalTok{Species <-}\StringTok{ }\KeywordTok{sapply}\NormalTok{(Geno2_melt_SNPinfo_HetNA}\OperatorTok{$}\NormalTok{Group, species)}
+\NormalTok{Geno2_melt_SNPinfo_HetNA <-}\StringTok{ }\KeywordTok{as.tibble}\NormalTok{(Geno2_melt_SNPinfo_HetNA)}
+\NormalTok{Geno2_melt_SNPinfo_HetNA}\OperatorTok{$}\NormalTok{Sample_ID <-}\StringTok{ }\KeywordTok{as.character}\NormalTok{(Geno2_melt_SNPinfo_HetNA}\OperatorTok{$}\NormalTok{Sample_ID)}
+
+\KeywordTok{tail}\NormalTok{(Geno2_melt_SNPinfo_HetNA, }\DataTypeTok{n=}\NormalTok{10L) }\CommentTok{# To check if the conversion was successful}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 10 x 8
+##    SNP_ID     Sample_ID Group SNP_call Chromosome Position  HetNA  Species
+##    <fct>      <chr>     <chr> <chr>         <int> <chr>     <chr>  <chr>  
+##  1 PZD00075.2 S0351     ZMMIL C/C              10 146599484 Homoz~ Maize  
+##  2 PZD00075.2 S1602     ZMMIL C/C              10 146599484 Homoz~ Maize  
+##  3 PZD00075.2 WB0022a   ZMMIL C/C              10 146599484 Homoz~ Maize  
+##  4 PZD00075.2 CU0200    ZMMIL C/C              10 146599484 Homoz~ Maize  
+##  5 PZD00075.2 SYN262    ZMMIL C/C              10 146599484 Homoz~ Maize  
+##  6 PZD00075.2 S0398     ZMMIL ?/?              10 146599484 NA     Maize  
+##  7 PZD00075.2 S1636     ZMMIL ?/?              10 146599484 NA     Maize  
+##  8 PZD00075.2 CU0201    ZMMIL C/C              10 146599484 Homoz~ Maize  
+##  9 PZD00075.2 S0215     ZMMIL C/C              10 146599484 Homoz~ Maize  
+## 10 PZD00075.2 CU0202    ZMMIL C/C              10 146599484 Homoz~ Maize
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Geno2_melt_SNPinfo_HetNA <-}\StringTok{ }\KeywordTok{arrange}\NormalTok{(Geno2_melt_SNPinfo_HetNA, Group, Sample_ID)}
+\KeywordTok{head}\NormalTok{(Geno2_melt_SNPinfo_HetNA, }\DataTypeTok{n=}\NormalTok{10L)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 10 x 8
+##    SNP_ID      Sample_ID Group SNP_call Chromosome Position  HetNA Species
+##    <fct>       <chr>     <chr> <chr>         <int> <chr>     <chr> <chr>  
+##  1 an1.4       SL-10     TRIPS C/C               1 240498509 Homo~ Other  
+##  2 id1.3       SL-10     TRIPS T/T               1 238902078 Homo~ Other  
+##  3 PZA00010.5  SL-10     TRIPS ?/?               1 119703101 NA    Other  
+##  4 PZA00013.10 SL-10     TRIPS ?/?               1 263276247 NA    Other  
+##  5 PZA00013.11 SL-10     TRIPS C/C               1 263276005 Homo~ Other  
+##  6 PZA00013.9  SL-10     TRIPS T/T               1 263276335 Homo~ Other  
+##  7 PZA00017.1  SL-10     TRIPS G/G               1 35620725  Homo~ Other  
+##  8 PZA00050.9  SL-10     TRIPS A/A               1 295459549 Homo~ Other  
+##  9 PZA00081.17 SL-10     TRIPS ?/?               1 45675053  NA    Other  
+## 10 PZA00098.14 SL-10     TRIPS C/C               1 161472433 Homo~ Other
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# To plot each sample with homozygous, heterozygous, and NA across SNP sites.}
+\NormalTok{SampleHetCounts <-}\StringTok{ }\NormalTok{Geno2_melt_SNPinfo_HetNA }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{group_by}\NormalTok{(Sample_ID,HetNA) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{summarise}\NormalTok{(}\DataTypeTok{HetNA_count=}\KeywordTok{n}\NormalTok{())}
+\KeywordTok{head}\NormalTok{(SampleHetCounts)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 6 x 3
+## # Groups:   Sample_ID [2]
+##   Sample_ID HetNA        HetNA_count
+##   <chr>     <chr>              <int>
+## 1 BKN_001   Heterozygous         115
+## 2 BKN_001   Homozygous           710
+## 3 BKN_001   NA                   114
+## 4 BKN_002   Heterozygous          84
+## 5 BKN_002   Homozygous           754
+## 6 BKN_002   NA                   101
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data=}\NormalTok{SampleHetCounts) }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_bar}\NormalTok{(}\DataTypeTok{mapping=}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x=}\NormalTok{Sample_ID, }\DataTypeTok{y=}\NormalTok{HetNA_count, }\DataTypeTok{fill=}\NormalTok{HetNA),}\DataTypeTok{stat =} \StringTok{"identity"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{R_Assignment_Markdown_code_files/figure-latex/Reshape for heterpzygous and missing data-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggsave}\NormalTok{(}\StringTok{"../Output/SampleHetHomoNA.png"}\NormalTok{, }\DataTypeTok{width =}\DecValTok{10}\NormalTok{, }\DataTypeTok{height=}\DecValTok{5}\NormalTok{)}
+
+\CommentTok{# To plot counts of each group with homozygous, heterozygous, and NA across SNP sites.}
+\NormalTok{GroupHetCounts <-}\StringTok{ }\NormalTok{Geno2_melt_SNPinfo_HetNA }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{group_by}\NormalTok{(Group,HetNA) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{summarise}\NormalTok{(}\DataTypeTok{HetNA_count=}\KeywordTok{n}\NormalTok{())}
+\KeywordTok{head}\NormalTok{(GroupHetCounts)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 6 x 3
+## # Groups:   Group [2]
+##   Group HetNA        HetNA_count
+##   <chr> <chr>              <int>
+## 1 TRIPS Heterozygous         637
+## 2 TRIPS Homozygous         13610
+## 3 TRIPS NA                  6411
+## 4 ZDIPL Heterozygous         488
+## 5 ZDIPL Homozygous         12111
+## 6 ZDIPL NA                  1486
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data=}\NormalTok{GroupHetCounts) }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_bar}\NormalTok{(}\DataTypeTok{mapping=}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x=}\NormalTok{Group, }\DataTypeTok{y=}\NormalTok{HetNA_count, }\DataTypeTok{fill=}\NormalTok{HetNA),}\DataTypeTok{stat =} \StringTok{"identity"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{R_Assignment_Markdown_code_files/figure-latex/Reshape for heterpzygous and missing data-2.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggsave}\NormalTok{(}\StringTok{"../Output/GroupHetHomoNA.png"}\NormalTok{, }\DataTypeTok{width =}\DecValTok{10}\NormalTok{, }\DataTypeTok{height=}\DecValTok{5}\NormalTok{)}
+
+\CommentTok{# To plot proportion of each group with homozygous, heterozygous, and NA across SNP sites}
+\CommentTok{# Since the goem_bar with position=fill with the full data takes very long time and memory to run, I calculated the proporation seperately and used it as y input to get the proportion.}
+\NormalTok{GroupTotal <-}\StringTok{ }\NormalTok{Geno2_melt_SNPinfo_HetNA }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{group_by}\NormalTok{(Group) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{summarise}\NormalTok{(}\DataTypeTok{Grouptotal=}\KeywordTok{n}\NormalTok{())}
+\KeywordTok{head}\NormalTok{(GroupTotal)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 6 x 2
+##   Group Grouptotal
+##   <chr>      <int>
+## 1 TRIPS      20658
+## 2 ZDIPL      14085
+## 3 ZLUXR      15963
+## 4 ZMHUE       9390
+## 5 ZMMIL     272310
+## 6 ZMMLR    1179384
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{GroupHetProp <-}\StringTok{ }\KeywordTok{merge}\NormalTok{(GroupHetCounts,GroupTotal,}\DataTypeTok{by=}\StringTok{"Group"}\NormalTok{)}
+\NormalTok{GroupHetProp <-}\StringTok{ }\KeywordTok{mutate}\NormalTok{(GroupHetProp, }\DataTypeTok{Proportion =}\NormalTok{ (HetNA_count}\OperatorTok{/}\NormalTok{Grouptotal)}\OperatorTok{*}\DecValTok{100}\NormalTok{)}
+
+\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data=}\NormalTok{GroupHetProp) }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_bar}\NormalTok{(}\DataTypeTok{mapping=}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x=}\NormalTok{Group, }\DataTypeTok{y=}\NormalTok{Proportion, }\DataTypeTok{fill=}\NormalTok{HetNA),}\DataTypeTok{stat =} \StringTok{"identity"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{R_Assignment_Markdown_code_files/figure-latex/Reshape for heterpzygous and missing data-3.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggsave}\NormalTok{(}\StringTok{"../Output/GroupHetHomoNAProp.png"}\NormalTok{, }\DataTypeTok{width =}\DecValTok{10}\NormalTok{, }\DataTypeTok{height=}\DecValTok{5}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\section{My own visualization}\label{my-own-visualization}
+
+I would like to see if the heterozygous status across the positions in
+Chromosome 1, and how they are different for each group.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Geno2_melt_SNPinfo_HetNA}\OperatorTok{$}\NormalTok{Position <-}\StringTok{ }\KeywordTok{as.integer}\NormalTok{(Geno2_melt_SNPinfo_HetNA}\OperatorTok{$}\NormalTok{Position)}
+\NormalTok{Chr1SNP <-}\StringTok{ }\NormalTok{Geno2_melt_SNPinfo_HetNA }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{filter}\NormalTok{(Chromosome }\OperatorTok{==}\StringTok{ }\DecValTok{1}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{arrange}\NormalTok{(Position) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{group_by}\NormalTok{(Group,HetNA,Position) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{summarise}\NormalTok{(}\DataTypeTok{n_rows=}\KeywordTok{n}\NormalTok{())}
+
+\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data=}\NormalTok{Chr1SNP)}\OperatorTok{+}\KeywordTok{geom_density}\NormalTok{(}\DataTypeTok{mapping=}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x=}\NormalTok{Position,}\DataTypeTok{fill=}\NormalTok{HetNA),}\DataTypeTok{alpha=}\FloatTok{0.5}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{facet_wrap}\NormalTok{(}\OperatorTok{~}\NormalTok{Group)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{R_Assignment_Markdown_code_files/figure-latex/SNP state across Chr1 in different group-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggsave}\NormalTok{(}\StringTok{"../Output/Chr1SNP.png"}\NormalTok{, }\DataTypeTok{width =}\DecValTok{10}\NormalTok{, }\DataTypeTok{height=}\DecValTok{5}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Note that the \texttt{echo\ =\ FALSE} parameter was added to the code
+chunk to prevent printing of the R code that generated the plot.
+
+
+\end{document}

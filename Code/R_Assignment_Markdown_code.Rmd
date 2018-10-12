@@ -1,0 +1,325 @@
+---
+title: "R-Assignment_Markdown"
+author: "Qi Mu"
+date: "October 8, 2018"
+output:
+  html_document: default
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Import data
+The project structure is 
+R-Assignment
+  Code: store the script for this project
+  Data: store the orginal (input) files
+  Instruction: store the assignment instruction
+  Output: store all the output files
+First load date from local folder. `../Data/file` was used because that is where I stored my input files.`../` represent going up a level, similar to unix system.
+*The web address based loading data does not work here.
+
+```{r data import}
+library(tidyverse)
+Geno <- read_tsv("../Data/fang_et_al_genotypes.txt", col_names = T )
+SNP <- read_tsv("../Data/snp_position.txt")
+```
+
+### Part I
+## Data inspection
+There are many ways to inspect the data. Below is a list of functions we can do. However, I masked certain fucntions because they will produce too large outputs. These actions can be done for smaller sized dateframes. `head()` is showing the similiar results as by looking at the data itself (both are showing the tibble of the first few rows), so I masked it as well.
+
+```{r data inspection}
+Geno
+#head(Geno)
+tail(Geno)
+dim(Geno)
+#str(Geno)
+is.list(Geno)
+is.matrix(Geno)
+is.data.frame(Geno)
+#colnames(Geno)
+
+SNP
+#view(SNP)
+#head(SNP)
+tail(SNP)
+str(SNP)
+is.list(SNP)
+is.matrix(SNP)
+is.data.frame(SNP)
+dim(SNP)
+#attributes(SNP)
+summary(SNP)
+colnames(SNP)
+```
+
+## SNP Data trimming and subset Geno file for Maize and Teosinte files
+
+```{r trim each dataset}
+#Creat reduced SNP file with only SNP_ID [1], Chromosome [3], and Position [4]
+RedSNP <- SNP[c(1,3,4)] # or use select(SNP, SNP_ID, Chromosome, Position)
+
+#subset the Geno file into Maize and Teosinte
+Maize <- filter(Geno, Group =='ZMMIL'|Group=='ZMMLR'|Group=='ZMMMR')
+Maize <- Maize[,c(-2,-3)] # To remove unused cols. Or use select(Maize,-(JG_OTU, Group))
+Maize
+Teosinte <- filter(Geno, Group == 'ZMPBA'| Group=='ZMPIL'| Group=='ZMPJA')
+Teosinte <- Teosinte[,c(-2,-3)] # To remove unused cols
+Teosinte
+```
+
+## Transpose
+Transposed files will lose the header, so I took the colnames from the orginal Maize file (vector) and combine with the transposed file using cbind (column bind), to add in the first column. cbind tends to convert character columns to fators unleass `stringAsFactors = F` is applied. 
+as.tibble was used to easlily view the dataframe that has been transposed and cbinded.
+After transposition, there is neither the row names, nor the column names specified. So the first row was used to set as the colnames for tMaize. A duplicate row was removed with `tMaize = tMaize[-1, ]`. 
+In order to joining files later, the first cell was replaced from "Sample_ID" to "SNP_ID".
+
+```{r transpose}
+tMaize<- t(Maize)
+tMaize<-cbind(colnames(Maize),tMaize,stringsAsFactors = F)
+tMaize<-as.tibble(tMaize)
+colnames(tMaize)<- tMaize[1,]
+tMaizee = tMaize[-1, ]
+colnames(tMaize)[1] <- "SNP_ID"
+tMaize
+
+tTeosinte<- t(Teosinte)
+tTeosinte<-cbind(colnames(Teosinte),tTeosinte,stringsAsFactors = F)
+tTeosinte<-as.tibble(tTeosinte)
+colnames(tTeosinte)<- tTeosinte[1,]
+tTeosinte = tTeosinte[-1, ]
+colnames(tTeosinte)[1] <- "SNP_ID"
+tTeosinte
+
+```
+
+## Merge SNP file with Maize and Teosinte files
+I used `merge` function here, which is base R function. However, `inner_join` function from dplyr can be applied, so that `as.tibble` can be dismissed. `SNP_tMaize1<- inner_join(RedSNP,tMaize, by= "SNP_ID")`
+
+```{r merge files}
+SNP_tMaize<- merge (RedSNP,tMaize, by= "SNP_ID") #method #1
+SNP_tMaize<-as.tibble(SNP_tMaize)
+SNP_tMaize
+
+SNP_tTeosinte<- inner_join(RedSNP,tTeosinte, by= "SNP_ID") #method #2
+SNP_tTeosinte
+```
+
+## Trim files to remove multiple or unknown positions from the files
+
+```{r trim files}
+SNP_tMaize<- filter(SNP_tMaize, Chromosome != 'multiple', Chromosome != 'unknown', Position != 'multiple')
+SNP_tMaize$Chromosome <- as.integer(SNP_tMaize$Chromosome)
+SNP_tMaize$Position <- as.integer(SNP_tMaize$Position)
+SNP_tMaize
+
+SNP_tTeosinte<- filter(SNP_tTeosinte, Chromosome != 'multiple', Chromosome != 'unknown', Position != 'multiple')
+SNP_tTeosinte$Chromosome <- as.integer(SNP_tTeosinte$Chromosome)
+SNP_tTeosinte$Position <- as.integer(SNP_tTeosinte$Position)
+SNP_tTeosinte
+```
+
+## Sort the merged & trimmed files by chromosomes and positions by 'arrange()'
+
+```{r arrange}
+SNP_tMaize_sorted<-arrange(SNP_tMaize, Chromosome, Position)
+tail(SNP_tMaize_sorted)
+
+SNP_tTeosinte_sorted<-arrange(SNP_tTeosinte, Chromosome, Position)
+tail(SNP_tTeosinte_sorted)
+```
+
+## Seperating files by chromosomes by increasing orders of positions, missing value by '?' 
+
+```{r seperating files #1}
+for (i in 1:10){
+  filename <- paste("../Output/", "Maize_inc_chr", i, ".txt", sep = "")
+  write_tsv(filter(SNP_tMaize_sorted, Chromosome == i), filename, col_names = T)
+}
+
+for (i in 1:10){
+  filename <- paste("../Output/", "Teosinte_inc_chr", i, ".txt", sep = "")
+  write_tsv(filter(SNP_tTeosinte_sorted, Chromosome == i), filename, col_names = T)
+}
+```
+
+## Seperating files by chromosomes by increasing orders of positions, missing value by '-' 
+
+```{r seperating files #2}
+# first replace the missing value with "-"
+SNP_tMaize_sorted[SNP_tMaize_sorted == "?/?"] <- "-/-"
+SNP_tMaize_sorted
+
+# USe pipe to put multiple functions together
+for (i in 1:10){
+  filename <- paste("../Output/", "Maize_dec_chr", i, ".txt", sep = "") #set the path and filename for write_tsv
+  SNP_tMaize_sorted %>%
+  filter(Chromosome == i) %>%
+  arrange (desc(Position)) %>%
+  write_tsv(filename, col_names = T)
+}
+
+# first replace the missing value with "-"
+SNP_tTeosinte_sorted[SNP_tTeosinte_sorted == "?/?"] <- "-/-"
+SNP_tTeosinte_sorted
+
+# USe pipe to put multiple functions together
+for (i in 1:10){
+  filename <- paste("../Output/", "Teosinte_dec_chr", i, ".txt", sep = "") #set the path and filename for write_tsv
+  SNP_tTeosinte_sorted %>%
+  filter(Chromosome == i) %>%
+  arrange (desc(Position)) %>%
+  write_tsv(filename, col_names = T)
+}
+
+```
+
+### Part II
+## Reshape
+
+```{r reshape data}
+library(reshape2)
+Geno2 <- Geno [,-2]
+Geno2
+Geno2_melt <- melt(Geno2, id = c("Sample_ID", "Group"))
+colnames(Geno2_melt)[3] <- "SNP_ID"
+colnames(Geno2_melt)[4] <- "SNP_call"
+head(Geno2_melt)
+Geno2_melt_SNPinfo <- merge(Geno2_melt,RedSNP, by = "SNP_ID")
+Geno2_melt_SNPinfo <- filter(Geno2_melt_SNPinfo, Chromosome != 'multiple', Chromosome != 'unknown', Position != 'multiple')
+
+Geno2_melt_SNPinfo$Chromosome = as.integer(Geno2_melt_SNPinfo$Chromosome)
+Geno2_melt_SNPinfo <- arrange(Geno2_melt_SNPinfo, Chromosome)
+
+head(Geno2_melt_SNPinfo)
+tail(Geno2_melt_SNPinfo)
+
+Group_SNP_counts <- Geno2_melt_SNPinfo %>%
+  group_by (Group, SNP_ID, SNP_call, Chromosome) %>%
+  summarise (row_counts = n()) 
+head(Group_SNP_counts, n=12L)
+
+Group_variableSNP <- Group_SNP_counts %>%
+  group_by (Group, SNP_ID, Chromosome) %>%
+  summarise(SNP_call_types = n())
+head(Group_variableSNP)
+
+VariableSNPs <- filter(Group_variableSNP, SNP_call_types>1)
+head(VariableSNPs, n=12L)
+
+SNPbyChr <- VariableSNPs %>%
+  group_by (Chromosome, Group) %>%
+  summarise(SNPcounts =n())
+
+SNPbyChr <- arrange(SNPbyChr, Chromosome, desc(SNPcounts))
+SNPbyChr
+
+
+SNPbyChr2 <- VariableSNPs %>%
+  group_by(Chromosome) %>%
+  summarise(SNPcountsAllGroup=n())
+SNPbyChr2
+```
+
+#Plots
+#SNPs per chromosome
+Here we define SNPs are only the SNP varies withine a certain group. Those monoallelic SNPs are excluded.
+```{r plot SNPs per chromosome}
+# To plot with all the SNPs in each chromosome, including all the groups
+ggplot(data = SNPbyChr2) + geom_col (mapping=aes(x=Chromosome, y=SNPcountsAllGroup)) + scale_x_continuous(breaks = c(1:10))
+ggsave("../Output/SNPsPerChr.png", width =6, height=5)
+
+# To plot the number of SNPs from each group in each chromosome. Each group is color coded differently.
+ggplot(data = SNPbyChr) + geom_point (mapping=aes(x=Chromosome, y=SNPcounts, color= Group),size=4,alpha=0.7) + scale_x_continuous(breaks = c(1:10))
+ggsave("../Output/SNPsPerChrByGroup.png", width =6, height=5)
+```
+This result shows us that different groups have different level of multi-allelic SNPs. ZMMIL, ZMMLR, ZMPBA, ZMPIL, and ZMXCP tends to have more multi-allelic SNPs than ZPERR, ZMXNT, ZDIPL, and ZMXNO.
+
+#Missing data and amount of heterozygosity
+#Reshape for heterozygous and missing data
+```{r Reshape for heterpzygous and missing data}
+# Create a function to convert Heterozygous to H, and missing to NA
+hetNA <- function (x) {
+  if (x == "A/A"| x =="T/T" | x =="C/C"| x =="G/G") {
+    return("Homozygous")
+  }else if (x == "?/?"){
+    return("NA")
+  }else{
+    return("Heterozygous")
+  }
+}
+
+species <- function (x) {
+  if(x=='ZMMIL'|x=='ZMMLR'|x=='ZMMMR'){
+    return("Maize")
+  }else if(x== 'ZMPBA'| x=='ZMPIL'|x=='ZMPJA'){
+    return("Teosinte")
+  }else {
+    return("Other")
+  }
+}
+
+# Create a new column with name HetNA
+Geno2_melt_SNPinfo_HetNA <- Geno2_melt_SNPinfo
+Geno2_melt_SNPinfo_HetNA$HetNA <- sapply(Geno2_melt_SNPinfo_HetNA$SNP_call, hetNA)
+Geno2_melt_SNPinfo_HetNA$Species <- sapply(Geno2_melt_SNPinfo_HetNA$Group, species)
+Geno2_melt_SNPinfo_HetNA <- as.tibble(Geno2_melt_SNPinfo_HetNA)
+Geno2_melt_SNPinfo_HetNA$Sample_ID <- as.character(Geno2_melt_SNPinfo_HetNA$Sample_ID)
+
+tail(Geno2_melt_SNPinfo_HetNA, n=10L) # To check if the conversion was successful
+
+Geno2_melt_SNPinfo_HetNA <- arrange(Geno2_melt_SNPinfo_HetNA, Group, Sample_ID)
+head(Geno2_melt_SNPinfo_HetNA, n=10L)
+
+# To plot each sample with homozygous, heterozygous, and NA across SNP sites.
+SampleHetCounts <- Geno2_melt_SNPinfo_HetNA %>%
+  group_by(Sample_ID,HetNA) %>%
+  summarise(HetNA_count=n())
+head(SampleHetCounts)
+
+ggplot(data=SampleHetCounts) + geom_bar(mapping=aes(x=Sample_ID, y=HetNA_count, fill=HetNA),stat = "identity")
+ggsave("../Output/SampleHetHomoNA.png", width =10, height=5)
+
+# To plot counts of each group with homozygous, heterozygous, and NA across SNP sites.
+GroupHetCounts <- Geno2_melt_SNPinfo_HetNA %>%
+  group_by(Group,HetNA) %>%
+  summarise(HetNA_count=n())
+head(GroupHetCounts)
+
+ggplot(data=GroupHetCounts) + geom_bar(mapping=aes(x=Group, y=HetNA_count, fill=HetNA),stat = "identity")
+ggsave("../Output/GroupHetHomoNA.png", width =10, height=5)
+
+# To plot proportion of each group with homozygous, heterozygous, and NA across SNP sites
+# Since the goem_bar with position=fill with the full data takes very long time and memory to run, I calculated the proporation seperately and used it as y input to get the proportion.
+GroupTotal <- Geno2_melt_SNPinfo_HetNA %>%
+  group_by(Group) %>%
+  summarise(Grouptotal=n())
+head(GroupTotal)
+
+GroupHetProp <- merge(GroupHetCounts,GroupTotal,by="Group")
+GroupHetProp <- mutate(GroupHetProp, Proportion = (HetNA_count/Grouptotal)*100)
+
+ggplot(data=GroupHetProp) + geom_bar(mapping=aes(x=Group, y=Proportion, fill=HetNA),stat = "identity")
+ggsave("../Output/GroupHetHomoNAProp.png", width =10, height=5)
+```
+
+#My own visualization
+I would like to see if the heterozygous status across the positions in Chromosome 1, and how they are different for each group.
+```{r SNP state across Chr1 in different group}
+Geno2_melt_SNPinfo_HetNA$Position <- as.integer(Geno2_melt_SNPinfo_HetNA$Position)
+Chr1SNP <- Geno2_melt_SNPinfo_HetNA %>%
+  filter(Chromosome == 1) %>%
+  arrange(Position) %>%
+  group_by(Group,HetNA,Position) %>%
+  summarise(n_rows=n())
+
+ggplot(data=Chr1SNP)+geom_density(mapping=aes(x=Position,fill=HetNA),alpha=0.5) + facet_wrap(~Group)
+ggsave("../Output/Chr1SNP.png", width =10, height=5)
+```
+
+
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
