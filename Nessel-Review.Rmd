@@ -1,0 +1,15 @@
+---
+title: "Nessel Review"
+author: "Timothy Nessel"
+date: "10/15/2018"
+output: html_document
+---
+####Data Inspection
+Minor comment but is is.matrix(SNP) excessive if you already have a good prediction that is.data.frame(SNP) is TRUE?  Just a thought, I think your inspection is thorough. 
+
+####Transpose
+Line 75: Typo 'fators' to 'factors'
+
+
+####My Review
+Overall this is a pretty stellar project. Your code is readable and concise; and you provided more than was expected of the assignment in many areas and demonstrated a strong knowledge and skillset of R and ggplots. I don't have much to contribute in terms of constructive criticism, it seems you are at a higher level of comfort with the material. I would say that you could provide some documentation or comments in the "Reshape" portion. Otherwise the comments in the last section and header explanations in the first part are more than enough for anyone to use and understand your code. Overall, great job!
