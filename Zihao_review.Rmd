@@ -1,0 +1,28 @@
+---
+title: "Zihao_review"
+author: "Zihao_Zheng"
+date: "10/16/2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+In general, the codes are well documented and run smoothly. The files requried can be generated and visualization are satisfying.
+
+A few suggestions that might make the codes more succinct:
+
+1. for line 38-57, to check the attribute of the files, you can use `str()`, which will give many of the information for the file you were trying to obtain.
+
+2. for line 246-268, it is a great idea of writing funcitons and apply them. An alternative way to shorten this chunck of codes is:
+
+```
+Geno2_melt_SNPinfo$HetNA[is.na(Geno2_melt_SNPinfo$SNP_call)] <- NA
+Geno2_melt_SNPinfo$HetNA[Geno2_melt_SNPinfo$SNP_call %in% c("A/A","C/C","G/G","T/T")] <- "homozygous"
+Geno2_melt_SNPinfo$HetNA[!Geno2_melt_SNPinfo$SNP_call %in% c("A/A","C/C","G/G","T/T",NA)] <- "heterozygous"
+
+```
+
+Good job! Qi.
